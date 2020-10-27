@@ -190,6 +190,7 @@ int main()
 	
 	float time_taken1 = ((float)(end1 - start1)) / CLOCKS_PER_SEC;
 	printf("\n\nIt took %.20lf seconds to sort arrays with Insertion Sort\n\n", time_taken1);
+
 	
 	
 
@@ -204,6 +205,7 @@ int main()
 	printf("\n\nIt took %.20lf seconds to sort arrays with Selection Sort\n\n", time_taken2);
 
 
+
 	
 
 	start3 = clock();
@@ -215,6 +217,7 @@ int main()
 	double time_taken3 = ((double)(end3 - start3)) / CLOCKS_PER_SEC;
 	printf("\n\nIt took %.20lf seconds to sort arrays with Bubble Sort\n\n", time_taken3);
 
+
 	
 	start4 = clock();
 	MergeSort(num4,0,size-1);
@@ -224,6 +227,7 @@ int main()
 	printStringArray(adressofletters4, strsize);
 	double time_taken4 = ((double)(end4-start4)) / CLOCKS_PER_SEC;
 	printf("\n\nIt took %.20lf seconds to sort arrays with Merge Sort\n\n", time_taken4);
+
 
 
 	return 0;
