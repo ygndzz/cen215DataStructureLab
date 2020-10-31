@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
-#include <stdlib.h>
 #include <assert.h>
+#include <time.h>
 
-void printArray(int array[], int size){
+void printArray(int array[], int n)
+{
     int i;
-    for (i = 0; i < size; i++){
+    for (i = 0; i < n; i++){
         printf("%d ", array[i]);
     }
      printf("\n");
 }
-void swap(int *a, int *b){
-
+void swap(int *a, int *b)
+{
     int temp = *a;
     *a = *b;
     *b = temp;
@@ -25,64 +25,81 @@ void swap_char(char *a, char *b)
     *b = temp;
 }
 
-//Insertion Sort
-void insertion_sort(int array[], int size)
+//INSERTION SORT
+void insertion_sort(int array[], int n)
 {
-    int i, index, j;
-    for (i = 1; i < size; i++) {
-        index = array[i];
+    int i, key, j;
+    for (i = 1; i < n; i++) {
+        key = array[i];
         j = i - 1;
-        while (j >= 0 && array[j] > index) {
+        while (j >= 0 && array[j] > key) {
             array[j + 1] = array[j];
             j = j - 1;
         }
-        array[j + 1] = index;
+        array[j + 1] = key;
     }
 }
-void insertion_sort_char(char array[], int size)
+void insertion_sort_char(char array[], int n)
 {
     int i, j;
-    char index;
-    for(i = 1; i < size; i++) {
-        index = array[i];
+    char key;
+    for(i = 1; i < n; i++) {
+        key = array[i];
         j = i - 1;
-        while(j >= 0 && array[j] > index) {
+        while(j >= 0 && array[j] > key) {
             array[j + 1] = array[j];
             j = j - 1;
         }
-        array[j + 1] = index;
+        array[j + 1] = key;
     }
 }
 
-//Selection Algorithm
-void selection_sort(int arr[], int size)
+//SELECTION SORT
+void selection_sort(int arr[], int n)
 {
     int i, j, min;
-    for (i = 0; i < size-1; i++)
+    for (i = 0; i < n-1; i++)
     {
         min = i;
-        for (j = i+1; j < size; j++)
+        for (j = i+1; j < n; j++)
           if (arr[j] < arr[min])
             min = j;
         swap(&arr[min], &arr[i]);
     }
 }
 
-void selection_sort_char(char array[], int size)
+void selection_sort_char(char array[], int n)
 {
     int i, j;
     char min;
-    for (i = 0; i < size-1; i++)
+    for (i = 0; i < n-1; i++)
     {
         min = i;
-        for (j = i+1; j < size; j++)
+        for (j = i+1; j < n; j++)
           if (array[j] < array[min])
             min = j;
         swap_char(&array[min], &array[i]);
     }
 }
+//BUBBLE SORT
+void bubble_sort(int array[], int n)
+{
+   int i, j;
+   for (i = 0; i < n-1; i++)
+       for (j = 0; j < n-i-1; j++)
+           if (array[j] > array[j+1])
+              swap(&array[j], &array[j+1]);
+}
 
-// Merge sort
+void bubble_sort_char(char array[], int n)
+{
+   int i, j;
+   for (i = 0; i < n-1; i++)
+       for (j = 0; j < n-i-1; j++)
+           if (array[j] > array[j+1])
+               swap_char(&array[j], &array[j+1]);
+}
+//MERGE SORT
 void merge(int array[], int l, int m, int r)
 {
     int i, j, k, n1, n2;
@@ -190,27 +207,8 @@ void merge_sort_char(char arr[], int x, int y)
         merge_char(arr, x, m, y);
     }
 }
-// Bubble Sort
-void bubble_sort(int array[], int size)
-{
-   int i, j;
-   for (i = 0; i < size-1; i++)
-       for (j = 0; j < size-i-1; j++)
-           if (array[j] > array[j+1])
-              swap(&array[j], &array[j+1]);
-}
 
-
-void bubble_sort_char(char array[], int size)
-{
-   int i, j;
-   for (i = 0; i < size-1; i++)
-       for (j = 0; j < size-i-1; j++)
-           if (array[j] > array[j+1])
-               swap_char(&array[j], &array[j+1]);
-}
-<<<<<<< HEAD
-// Quick Sort
+//QUICK SORT
 void quickSort(int *array,int first,int last){
     int i; 
     int j; 
@@ -223,12 +221,12 @@ void quickSort(int *array,int first,int last){
         pivot=first;
         i=first;
         j=last;
-        for (;i<j;){
-            for (;array[i]<=array[pivot] && i<last && j>i;i++){ 
-            
+        while (i<j){
+            while (array[i]<=array[pivot] && i<last && j>i){ 
+                i++;
             }
-            for (;array[j]>=array[pivot] && j>=first && j>=i;j--){
-                
+            while (array[j]>=array[pivot] && j>=first && j>=i){
+                j--;
             }
             if (j>i){ 
                 temp=array[i];
@@ -256,12 +254,12 @@ void quickSortChar(char *array,char first,char last){
         pivot=first;
         i=first;
         j=last;
-        for (; i<j; ){
-            for (;array[i]<=array[pivot] && i<last && j>i;i++) { 
-               
+        while (i<j){
+            while (array[i]<=array[pivot] && i<last && j>i){ 
+                i++;
             }
-            for (;array[j]>=array[pivot] && j>=first && j>=i;j--){
-            
+            while (array[j]>=array[pivot] && j>=first && j>=i){
+                j--;
             }
             if (j>i){ 
                 temp=array[i];
@@ -278,7 +276,8 @@ void quickSortChar(char *array,char first,char last){
     }
 }
 
-//Heap Soer
+//HEAP SORT
+
 void heapSort (int *x, int size)
 {
    int  left, right, temp;
@@ -341,90 +340,95 @@ void heapSortChar (char *x, int size)
       heapify(x, 0, right);
    }
 }
-=======
->>>>>>> ea33d98ca5e8a2ada509cf16c62695faa9eec449
+
+
 int main() {
  
-    printf("Mertay AKTAS\n2018555003\n\n\n");
-    clock_t time123;
+    clock_t time;
 
-    //Selection Sort
-    
-    int ogrenci_no[] = { 2, 0, 1, 8, 5, 5, 5, 0, 0, 3 };
-    char name[] = "mertay aktas";
-    int size = sizeof(ogrenci_no) / sizeof(ogrenci_no[0]);
+    int ogr_no[] = { 2, 0, 1, 9, 5, 5, 5, 4, 5, 4};
+    char name[] = "RECEP BARAN BAGCI";
+    int n = sizeof(ogr_no) / sizeof(ogr_no[0]);
     int char_size = strlen(name);
-
-    time123 = clock();
-    insertion_sort(ogrenci_no, size);
-    time123 = clock() - time123;
-    printArray(ogrenci_no, size);
-    printf("insertion sorting time: %f\n", ((double)time123)/ CLOCKS_PER_SEC);
-    insertion_sort_char(name, char_size);
-    time123 = clock() - time123;
-    printf("%s\n", name);
-    printf("insertion char sorting time: %f\n", ((double)time123) / CLOCKS_PER_SEC);
-
-    //Selection Sort
     
-    selection_sort(ogrenci_no, size);
-    time123= clock() - time123;
-    printArray(ogrenci_no, size);
-    printf("selection sorting time: %f\n", ((double)time123) / CLOCKS_PER_SEC);
+    
+
+    time = clock();
+    
+	//INSERTION SORT
+	
+	insertion_sort(ogr_no, n);
+    time = clock() - time;
+    printArray(ogr_no, n);
+    printf("INSERTION SORT NUMBER TIME: %f\n", ((double)time) / CLOCKS_PER_SEC);
+    insertion_sort_char(name, char_size);
+    time = clock() - time;
+    printf("%s\n", name);
+    printf("INSERTION SORT NAME TIME: %f\n", ((double)time) / CLOCKS_PER_SEC);
+
+    //SELECTION SORT
+    
+    selection_sort(ogr_no, n);
+    time = clock() - time;
+    printArray(ogr_no, n);
+    printf("SELECTION SORT NUMBER TIME: %f\n", ((double)time) / CLOCKS_PER_SEC);
     
     selection_sort_char(name, char_size);
-    time123 = clock() - time123;
+    time = clock() - time;
     printf("%s\n", name);
-    printf("selection char sorting time: %f\n", ((double)time123) / CLOCKS_PER_SEC);
+    printf("SELECTION SORT NAME TIME: %f\n", ((double)time) / CLOCKS_PER_SEC);
 
-    
-    //Merge Sort
-    
-    merge_sort(ogrenci_no, 0, size - 1);
-    time123= clock() - time123;
-    printArray(ogrenci_no, size);
-    printf("merge sorting time: %f\n", ((double)time123) / CLOCKS_PER_SEC);
-    merge_sort_char(name, 0, char_size - 1);
-    time123 = clock() - time123;
-    printf("%s\n", name);
-    printf("merge char sorting time: %f\n", ((double)time123) / CLOCKS_PER_SEC);
-    
-    //Bubble Sort
+
+    //BUBBLE SORT
   
-    bubble_sort(ogrenci_no, size);
-    time123 = clock() - time123;
-    printArray(ogrenci_no, size);
-    printf("bubble sorting time: %f\n", ((double)time123) / CLOCKS_PER_SEC);
+
+
+    bubble_sort(ogr_no, n);
+    time = clock() - time;
+    printArray(ogr_no, n);
+    printf("BUBBLE SORT NUMBER TIME: %f\n", ((double)time) / CLOCKS_PER_SEC);
 
     bubble_sort_char(name, char_size);
-     time123= clock() - time123;
+    time = clock() - time;
     printf("%s\n", name);
-    printf("bubble char sorting time: %f\n", ((double)time123) / CLOCKS_PER_SEC);
-<<<<<<< HEAD
+    printf("BUBBLE SORT NAME TIME: %f\n", ((double)time) / CLOCKS_PER_SEC);
+
     
-     //Quick Sort
-	
-	quickSort(ogrenci_no,0,size-1);
-    time123 = clock() - time123;
-    printArray(ogrenci_no, size);
-    printf("quick sorting time: %f\n", ((double)time123) / CLOCKS_PER_SEC);
+    //MERGE SORT
+
+
+    
+    merge_sort(ogr_no, 0, n - 1);
+    time= clock() - time;
+    printArray(ogr_no, n);
+    printf("MERGE SORT NUMBER TIME: %f\n", ((double)time) / CLOCKS_PER_SEC);
+    merge_sort_char(name, 0, char_size - 1);
+    time = clock() - time;
+    printf("%s\n", name);
+    printf("MERGE SORT NAME TIME: %f\n", ((double)time) / CLOCKS_PER_SEC);
+    
+    //QUICK SORT
+    quickSort(ogr_no,0,n-1);
+    time = clock() - time;
+    printArray(ogr_no, n);
+    printf("QUICK SORT NUMBER TIME: %f\n", ((double)time) / CLOCKS_PER_SEC);
     quickSortChar(name,0,char_size-99);
-    time123 = clock() - time123;
+    time = clock() - time;
     printf("%s\n", name);
-    printf("quick char sorting time: %f\n", ((double)time123) / CLOCKS_PER_SEC);
+    printf("QUICK SORT NAME TIME: %f\n", ((double)time) / CLOCKS_PER_SEC);   
+   
+    //HEAP SORT
 	
-	//Heap Sort
-	
-	heapSort(ogrenci_no,size);
-    time123 = clock() - time123;
-    printArray(ogrenci_no, size);
-    printf("heap sorting time: %f\n", ((double)time123) / CLOCKS_PER_SEC);
+    heapSort(ogr_no, n);
+    time = clock() - time;
+    printArray(ogr_no, n);
+    printf("HEAP SORT NUMBER TIME: %f\n", ((double)time) / CLOCKS_PER_SEC);
     heapSortChar(name,0);
-    time123 = clock() - time123;
+    time = clock() - time;
     printf("%s\n", name);
-    printf("heap char sorting time: %f\n", ((double)time123) / CLOCKS_PER_SEC);
-	
-=======
->>>>>>> ea33d98ca5e8a2ada509cf16c62695faa9eec449
+    printf("HEAP SORT NAME TIME: %f\n", ((double)time) / CLOCKS_PER_SEC); 
+
+    printf("\n NAME: RECEP BARAN BAGCI \n NUM : 2019555454");
     return 0;
 }
+

@@ -2,208 +2,254 @@
 #include<stdlib.h>
 #include<time.h>
 
-//Rest
+//Rest Function
+
 void rest_N(int* num, int* num1, int size);
 void rest_L(char* let, char* let1, int size);
 
-//SelectionSort
+//SelectionSort Function
+
 void selectionSort_N(int* num, int size);
 void selectionSort_L(char* let, int size);
 
-//BubbleSort
+//BubbleSort Function
+
 void bubleSort_N(int* num, int size);
 void bubleSort_L(char* let, int size);
 
-//InsertionSort
+//InsertionSort Function
+
 void insertionSort_N(int* num, int size);
 void insertionSort_L(char* let, int size);
 
-//MergeSort
+//MergeSort Function
+
 void mergeSort_N(int* num, int i, int j);
 void merge_N(int* num, int l, int m, int r);
 void mergeSort_L(char* let, int i, int j);
 void merge_L(char* let, int l, int m, int r);
 
-//QuickSort
+//QuickSort Function
+
 void quickSort_N(int* num, int lw, int hg);
 int quickSortPart_N(int* num, int lw, int hg);
 void quickSort_L(char* let, int lw, int hg);
 int quickSortPart_L(char* let, int lw, int hg);
 
-//HeapSort
+//HeapSort Function
+
 void heapSort_N(int* num, int size);
 void heapSortFy_N(int* num, int size, int i);
 void heapSort_L(char* let, int size);
 void heapSortFy_L(char* let, int size, int i);
 
-//Swap
+//Swap Function
+
 void swap_N(int* num, int i, int j);
 void swap_L(char* let, int i, int j);
 
-//Print
+//Print Function
+
 void print_N(int* num, int size);
 void print_L(char* let, int size);
 
+
+
+
+
 int main() {
 
-	// My SchoolNumber array
-	int schoolNumber[] = { 2,0,1,8,5,5,5,0,2,7 };
+
+	int schoolNumber[] = { 2,0,1,8,5,5,5,8,0,3 };
 	int size_N = sizeof(schoolNumber) / sizeof(schoolNumber[0]);
 	int num[size_N];
-	clock_t timer;
-	printf("My School Number is : ");
+	double time_spent = 0.0;
+
+	printf("My School Number : ");
 	print_N(&schoolNumber[0], size_N);
 
 	printf("\n");
-	// My Name Array
-	char name[] = "bora gulsoy";
+
+	char name[] = "ibrahim akdemir";
 	int size_L = sizeof(name) / sizeof(name[0]);
-	char let[17];
-	printf("My Name is : ");
+	char let[15];
+	printf("My Name : ");
 	print_L(&name[0], size_L);
 
-	//selectionSort *****************************************
-	printf("\n\nPart of Selection Sort	*********************\n");
+	//selectionSort 
 
-	//for Number
+	printf("\n\n\tSelection Sort\t\t\n");
+
+
 	rest_N(&schoolNumber[0], &num[0], size_N);
-	timer = clock();
+	clock_t begin1 = clock();
 	selectionSort_N(&num[0], size_N);
-	timer = clock() - timer;
-	printf("Organized Number is : ");
+	clock_t end1 = clock();
+	printf("\nSorted numbers are :");
 	print_N(&num[0], size_N);
-	printf("\nThe passing time : %f second", ((double)timer) / CLOCKS_PER_SEC);
+	time_spent += (double)(end1 - begin1) / CLOCKS_PER_SEC;
+
+	printf("\nElapsed Time is %f seconds", time_spent);
 
 	printf("\n");
-	//for Letter
+
 	rest_L(&name[0], &let[0], size_L);
-	timer = clock();
+	clock_t begin2 = clock();
 	selectionSort_L(&let[0], size_L);
-	timer = clock() - timer;
-	printf("Organized Letter is : ");
+	clock_t end2 = clock();
+	printf("Sorted letters are :");
 	print_L(&let[0], size_L);
-	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+	time_spent += (double)(end2 - begin2) / CLOCKS_PER_SEC;
 
-	//bubbleSort  *****************************************
-	printf("\n\nPart of Bubble Sort	*********************\n");
+	printf("\nElapsed Time is %f seconds", time_spent);
 
-	//for Number
+	//bubbleSort 
+
+	printf("\n\n\tBubble Sort\t\t\n");
+
+
 	rest_N(&schoolNumber[0], &num[0], size_N);
-	timer = clock();
+	clock_t begin3 = clock();
 	bubleSort_N(&num[0], size_N);
-	timer = clock() - timer;
-	printf("Organized Number is : ");
+	clock_t end3 = clock();
+	printf("\nSorted numbers are :");
 	print_N(&num[0], size_N);
-	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+	time_spent += (double)(end3 - begin3) / CLOCKS_PER_SEC;
+
+	printf("\nElapsed Time is %f seconds", time_spent);
 
 	printf("\n");
-	//for Letter
+
 	rest_L(&name[0], &let[0], size_L);
-	timer = clock();
+	clock_t begin4 = clock();
 	bubleSort_L(&let[0], size_L);
-	timer = clock() - timer;
-	printf("Organized Letter is : ");
+	clock_t end4 = clock();
+	printf("Sorted letters are :");
 	print_L(&let[0], size_L);
-	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+	time_spent += (double)(end4 - begin4) / CLOCKS_PER_SEC;
+
+	printf("\nElapsed Time is %f seconds", time_spent);
 
 
-	//insertionSort ****************************************
-	printf("\n\nPart of Insertion Sort	*********************\n");
+	//insertionSort 
 
-	//for Number
+	printf("\n\n\tInsertion Sort\t\t\n");
+
+
 	rest_N(&schoolNumber[0], &num[0], size_N);
-	timer = clock();
+	clock_t begin5 = clock();
 	insertionSort_N(&num[0], size_N);
-	timer = clock() - timer;
-	printf("Organized Number is : ");
+	clock_t end5 = clock();
+	printf("\nSorted numbers are :");
 	print_N(&num[0], size_N);
-	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+	time_spent += (double)(end5 - begin5) / CLOCKS_PER_SEC;
+
+	printf("\nElapsed Time is %f seconds", time_spent);
 
 	printf("\n");
 
-	//for Letter
+
 	rest_L(&name[0], &let[0], size_L);
-	timer = clock();
+	clock_t begin6 = clock();
 	insertionSort_L(&let[0], size_L);
-	timer = clock() - timer;
-	printf("Organized Letter is : ");
+	clock_t end6 = clock();
+	printf("Sorted letters are :");
 	print_L(&let[0], size_L);
-	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+	time_spent += (double)(end6 - begin6) / CLOCKS_PER_SEC;
 
-	//mergeSort	**************************************************
-	printf("\n\nPart of Merge Sort	*********************\n");
+	printf("\nElapsed Time is %f seconds", time_spent);
 
-	//for Number
+	//mergeSort
+
+	printf("\n\n\tMerge Sort\t\t\n");
+
+
 	rest_N(&schoolNumber[0], &num[0], size_N);
-	timer = clock();
+	clock_t begin7 = clock();
 	mergeSort_N(&num[0], 0, size_N - 1);
-	timer = clock() - timer;
-	printf("Organized Number is : ");
+	clock_t end7 = clock();
+	printf("\nSorted numbers are :");
 	print_N(&num[0], size_N);
-	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+	time_spent += (double)(end7 - begin7) / CLOCKS_PER_SEC;
+
+	printf("\nElapsed Time is %f seconds", time_spent);
 
 	printf("\n");
 
-	//for Letter
+
 	rest_L(&name[0], &let[0], size_L);
-	timer = clock();
+	clock_t begin8 = clock();
 	mergeSort_L(&let[0], 0, size_L - 1);
-	timer = clock() - timer;
-	printf("Organized Letter is : ");
+	clock_t end8 = clock();
+	printf("Sorted letters are :");
 	print_L(&let[0], size_L);
-	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+	time_spent += (double)(end8 - begin8) / CLOCKS_PER_SEC;
 
-	//QuickSort ***********************************************
-	printf("\n\nPart of Quick Sort	*********************\n");
+	printf("\nElapsed Time is %f seconds", time_spent);
+	
+	
+	//QuickSort 
+	
+	printf("\n\n\tQuick Sort\t\t\n");
 
-	//for Number
+
 	rest_N(&schoolNumber[0], &num[0], size_N);
-	timer = clock();
+	clock_t begin9 = clock();
 	quickSort_N(&num[0], 0, size_N - 1);
-	timer = clock() - timer;
-	printf("Organized Number is : ");
+	clock_t end9 = clock();
+	printf("\nSorted numbers are :");
 	print_N(&num[0], size_N);
-	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+	time_spent += (double)(end9 - begin9) / CLOCKS_PER_SEC;
+
+	printf("\nElapsed Time is %f seconds", time_spent);
 
 	printf("\n");
 
-	//for Letter
+
 	rest_L(&name[0], &let[0], size_L);
-	timer = clock();
+	clock_t begin10 = clock();
 	quickSort_L(&let[0], 0, size_L - 1);
-	timer = clock() - timer;
-	printf("Organized Letter is : ");
+	clock_t end10 = clock();
+	printf("Sorted letters are : ");
 	print_L(&let[0], size_L);
-	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+	time_spent += (double)(end10 - begin10) / CLOCKS_PER_SEC;
 
-	//HeapkSort ***********************************************
-	printf("\n\nPart of Heap Sort	*********************\n");
+	printf("\nElapsed Time is %f seconds", time_spent);
 
-	//for Number
+	//HeapSort
+	 
+	printf("\n\n\tHeap Sort\t\t\n");
+
+
 	rest_N(&schoolNumber[0], &num[0], size_N);
-	timer = clock();
+	clock_t begin11 = clock();
 	heapSort_N(&num[0], size_N);
-	timer = clock() - timer;
-	printf("Organized Number is : ");
+	clock_t end11 = clock();
+	printf("\nSorted numbers are :");
 	print_N(&num[0], size_N);
-	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+	time_spent += (double)(end11 - begin11) / CLOCKS_PER_SEC;
+
+	printf("\nElapsed Time is %f seconds", time_spent);
 
 	printf("\n");
 
-	//for Letter
+
 	rest_L(&name[0], &let[0], size_L);
-	timer = clock();
+	clock_t begin12 = clock();
 	heapSort_L(&let[0], size_L);
-	timer = clock() - timer;
-	printf("Organized Letter is : ");
+	clock_t end12 = clock();
+	printf("Sorted letters are :");
 	print_L(&let[0], size_L);
-	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+	time_spent += (double)(end12 - begin12) / CLOCKS_PER_SEC;
+
+	printf("\nElapsed Time is %f seconds", time_spent);
 
 }
 
-//Rest	*****************************************************
 
-//for Number
+//Rest
+
+
 void rest_N(int* num, int* num1, int size) {
 	int i = 0;
 	for (; i < size; i++) {
@@ -211,7 +257,6 @@ void rest_N(int* num, int* num1, int size) {
 	}
 }
 
-//for Letter
 void rest_L(char* let, char* let1, int size) {
 	int i = 0;
 	for (; i < size; i++) {
@@ -219,9 +264,9 @@ void rest_L(char* let, char* let1, int size) {
 	}
 }
 
-//selectionSort *****************************************
+//selectionSort
 
-//for Number
+
 void selectionSort_N(int* num, int size) {
 	int i = 0;
 	for (; i < size - 1; i++) {
@@ -240,7 +285,7 @@ void selectionSort_N(int* num, int size) {
 
 }
 
-//for Letter
+
 void selectionSort_L(char* let, int size) {
 	int i = 0;
 	for (; i < size - 1; i++) {
@@ -258,9 +303,9 @@ void selectionSort_L(char* let, int size) {
 	}
 }
 
-//bubbleSort  *****************************************
+//bubbleSort
 
-//for Number
+
 void bubleSort_N(int* num, int size) {
 	int i = 0;
 	for (; i < size; i++) {
@@ -273,7 +318,7 @@ void bubleSort_N(int* num, int size) {
 	}
 }
 
-//for Letter
+
 void bubleSort_L(char* let, int size) {
 	int i = 0;
 	for (; i < size; i++) {
@@ -286,9 +331,9 @@ void bubleSort_L(char* let, int size) {
 	}
 }
 
-//insertionSort ****************************************
+//insertionSort
 
-//for Number
+
 void insertionSort_N(int* num, int size) {
 	int i = 1;
 	for (; i < size; i++) {
@@ -301,7 +346,7 @@ void insertionSort_N(int* num, int size) {
 	}
 }
 
-//for Letter
+
 void insertionSort_L(char* let, int size) {
 	int i = 1;
 	for (; i < size; i++) {
@@ -314,9 +359,9 @@ void insertionSort_L(char* let, int size) {
 	}
 }
 
-//MergeSort	 ***************************************
+//MergeSort
 
-//for Number
+
 void mergeSort_N(int* num, int i, int j) {
 	if (i < j) {
 
@@ -368,7 +413,7 @@ void merge_N(int* num, int l, int m, int r) {
 	}
 }
 
-//for Letter 
+
 void mergeSort_L(char* let, int i, int j) {
 	if (i < j) {
 
@@ -420,9 +465,11 @@ void merge_L(char* let, int l, int m, int r) {
 	}
 }
 
-//QuickSort		**********************************************
 
-//for Number 
+
+//QuickSort	
+
+
 void quickSort_N(int* num, int lw, int hg) {
 	if (lw < hg) {
 		int pa = quickSortPart_N(num, lw, hg);
@@ -441,7 +488,7 @@ int quickSortPart_N(int* num, int lw, int hg) {
 	return lw;
 }
 
-//for Letter
+
 void quickSort_L(char* let, int lw, int hg) {
 	if (lw < hg) {
 		int pa = quickSortPart_L(let, lw, hg);
@@ -460,9 +507,9 @@ int quickSortPart_L(char* let, int lw, int hg) {
 	return lw;
 }
 
-//HeapSort *******************************************
+//HeapSort
 
-//for Number
+
 void heapSort_N(int* num, int size) {
 	int i;
 	for (i = size / 2 - 1; i >= 0; i--) {
@@ -487,7 +534,7 @@ void heapSortFy_N(int* num, int size, int i) {
 	}
 
 	if (largest != i) {
-		swap_N(num, i, largest);
+		swap_N(num,i,largest);
 		heapSortFy_N(num, size, largest);
 	}
 }
@@ -518,40 +565,45 @@ void heapSortFy_L(char* let, int size, int i) {
 		swap_L(let, i, largest);
 		heapSortFy_L(let, size, largest);
 	}
+	
 }
 
 
-//Swap	********************************************
+//Swap
 
-//for Number
+
 void swap_N(int* num, int i, int j) {
 	int a = num[i];
 	num[i] = num[j];
 	num[j] = a;
 }
 
-//for Letter
+
 void swap_L(char* let, int i, int j) {
 	char a = let[i];
 	let[i] = let[j];
 	let[j] = a;
 }
 
-//Print		********************************************
 
-//for Number
+
+//Print	
+
+
 void print_N(int* num, int size) {
 	int i = 0;
 	for (; i < size; i++)
 		printf("%d", num[i]);
 }
 
-//for Letter
+
 void print_L(char* let, int size) {
 	int i = 0;
 	for (; i < size; i++)
 		if (let[i] == ' ')
-			printf("_");
+			printf(" ");
 		else
 			printf("%c", let[i]);
 }
+
+
