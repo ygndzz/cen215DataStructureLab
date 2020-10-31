@@ -28,6 +28,21 @@ void merge_N(int* num, int l, int m, int r);
 void mergeSort_L(char* let, int i, int j);
 void merge_L(char* let, int l, int m, int r);
 
+
+//QuickSort
+void quickSort_N(int* num, int lw, int hg);
+int quickSortPart_N(int* num, int lw, int hg);
+void quickSort_L(char* let, int lw, int hg);
+int quickSortPart_L(char* let, int lw, int hg);
+
+
+//HeapSort
+void heapSort_N(int* num, int size);
+void heapSortFy_N(int* num, int size, int i);
+void heapSort_L(char* let, int size);
+void heapSortFy_L(char* let, int size, int i);
+
+
 //Swap
 void swap_N(int* num, int i, int j);
 void swap_L(char* let, int i, int j);
@@ -38,7 +53,7 @@ void print_L(char* let, int size);
 
 int main() {
 
-	// Okul numaram...
+	//Okul numaram
 	int okulnumaram[] = { 2,0,1,7,5,5,5,0,6,3 };
 	int size_N = sizeof(okulnumaram) / sizeof(okulnumaram[0]);
 	int num[size_N];
@@ -47,13 +62,12 @@ int main() {
 	print_N(&okulnumaram[0], size_N);
 
 	printf("\n");
-	// Ýsmim...
-	char isim[] = "mert ugurbekler";
-	int size_L = sizeof(isim) / sizeof(isim[0]);
+	//Ýsmim
+	char ismim[] = "mert ugurbekler";
+	int size_L = sizeof(ismim) / sizeof(ismim[0]);
 	char let[17];
 	printf("Ismim : ");
-	print_L(&isim[0], size_L);
-	
+	print_L(&ismim[0], size_L);
 	
 	
 	//***************************************** Insertion Sort ****************************************
@@ -71,15 +85,13 @@ int main() {
 	printf("\n");
 
 	//Harfler için
-	rest_L(&isim[0], &let[0], size_L);
+	rest_L(&ismim[0], &let[0], size_L);
 	timer = clock();
 	insertionSort_L(&let[0], size_L);
 	timer = clock() - timer;
 	printf("Sirali yeni isim : ");
 	print_L(&let[0], size_L);
 	printf("\nGecen sure : '%f' saniye", (((double)timer) / CLOCKS_PER_SEC));
-	//Insertion Sort bitiþ
-	
 
 	//***************************************** Selection Sort *****************************************
 	printf("\n\n\n********************* Selection Sort icin siralama *********************\n");
@@ -95,20 +107,18 @@ int main() {
 
 	printf("\n");
 	//Harfler için
-	rest_L(&isim[0], &let[0], size_L);
+	rest_L(&ismim[0], &let[0], size_L);
 	timer = clock();
 	selectionSort_L(&let[0], size_L);
 	timer = clock() - timer;
 	printf("Sirali yeni isim : ");
 	print_L(&let[0], size_L);
 	printf("\nGecen sure : '%f' saniye", (((double)timer) / CLOCKS_PER_SEC));
-	
-	
 
 	//***************************************** Bubble Sort *****************************************
 	printf("\n\n********************* Bubble Sort icin siralama *********************\n");
 
-	//Saylar için
+	//Sayýlar için 
 	rest_N(&okulnumaram[0], &num[0], size_N);
 	timer = clock();
 	bubleSort_N(&num[0], size_N);
@@ -119,16 +129,16 @@ int main() {
 
 	printf("\n");
 	//Harfler için
-	rest_L(&isim[0], &let[0], size_L);
+	rest_L(&ismim[0], &let[0], size_L);
 	timer = clock();
 	bubleSort_L(&let[0], size_L);
 	timer = clock() - timer;
 	printf("Sirali yeni isim : ");
 	print_L(&let[0], size_L);
 	printf("\nGecen sure : '%f' saniye", (((double)timer) / CLOCKS_PER_SEC));
+
+
 	
-
-
 
 	//***************************************** Merge Sort **************************************************
 	printf("\n\n********************* Merge Sort icin siralama *********************\n");
@@ -145,21 +155,66 @@ int main() {
 	printf("\n");
 
 	//Harfler için
-	rest_L(&isim[0], &let[0], size_L);
+	rest_L(&ismim[0], &let[0], size_L);
 	timer = clock();
 	mergeSort_L(&let[0], 0, size_L - 1);
 	timer = clock() - timer;
 	printf("Sirali yeni isim : ");
 	print_L(&let[0], size_L);
-	printf("\nGecen sure : '%f' saniye", (((double)timer) / CLOCKS_PER_SEC));}
-	
+	printf("\nGecen sure : '%f' saniye", (((double)timer) / CLOCKS_PER_SEC));
 
+	//***************************************** Quick Sort ***********************************************
+	printf("\n\n********************* Quick Sort icin siralama *********************\n");
+
+	//Sayýlar için
+	rest_N(&okulnumaram[0], &num[0], size_N);
+	timer = clock();
+	quickSort_N(&num[0], 0, size_N - 1);
+	timer = clock() - timer;
+	printf("Sirali yeni numara : ");
+	print_N(&num[0], size_N);
+	printf("\nNumara icin gecen sure : '%f' saniye", (((double)timer) / CLOCKS_PER_SEC));
+
+	printf("\n");
+
+	//Harfler için
+	rest_L(&ismim[0], &let[0], size_L);
+	timer = clock();
+	quickSort_L(&let[0], 0, size_L - 1);
+	timer = clock() - timer;
+	printf("Sirali yeni isim : ");
+	print_L(&let[0], size_L);
+	printf("\nGecen sure : '%f' saniye", (((double)timer) / CLOCKS_PER_SEC));
+
+	//***************************************** Heap Sort ***********************************************
+	printf("\n\n********************* Heap Sort icin siralama *********************\n");
+
+	//Sayýlar için
+	rest_N(&okulnumaram[0], &num[0], size_N);
+	timer = clock();
+	heapSort_N(&num[0], size_N);
+	timer = clock() - timer;
+	printf("Sirali yeni numara : ");
+	print_N(&num[0], size_N);
+	printf("\nNumara icin gecen sure : '%f' saniye", (((double)timer) / CLOCKS_PER_SEC));
+
+	printf("\n");
+
+	//Harfler için
+	rest_L(&ismim[0], &let[0], size_L);
+	timer = clock();
+	heapSort_L(&let[0], size_L);
+	timer = clock() - timer;
+	printf("Sirali yeni isim : ");
+	print_L(&let[0], size_L);
+	printf("\nGecen sure : '%f' saniye", (((double)timer) / CLOCKS_PER_SEC));
+
+}
 
 //Rest	*****************************************************
 
 //Sayýlar için
-void rest_N(int* num, int* num1, int size)
- {
+void rest_N(int* num, int* num1, int size) {
 	int i = 0;
 	for (; i < size; i++) {
 		num1[i] = num[i];
@@ -169,43 +224,36 @@ void rest_N(int* num, int* num1, int size)
 //Harfler için
 void rest_L(char* let, char* let1, int size) {
 	int i = 0;
-	for (; i < size; i++) 
-	{
+	for (; i < size; i++) {
 		let1[i] = let[i];
 	}
 }
 
-
-
 //selectionSort için sýralama kodlarý *****************************************
 
-//Sayýlar için Selection Sort
+//Sayýlar için selectionSort
 void selectionSort_N(int* num, int size) {
 	int i = 0;
 	for (; i < size - 1; i++) {
 		int mc = i, flag = 0;
 		int j = i + 1;
-		for (; j < size; j++) 
-		{
-			if (num[j] < num[mc]) 
-			{
+		for (; j < size; j++) {
+			if (num[j] < num[mc]) {
 				mc = j;
 				flag = 1;
 			}
 		}
-		if (flag == 1) 
-		{
+		if (flag == 1) {
 			swap_N(num, i, mc);
 		}
 	}
 
 }
 
-//Harfler için Selection Sort
+//Harfler için selectionSort
 void selectionSort_L(char* let, int size) {
 	int i = 0;
-	for (; i < size - 1; i++) 
-	{
+	for (; i < size - 1; i++) {
 		int mc = i, flag = 0;
 		int j = i + 1;
 		for (; j < size; j++) {
@@ -214,18 +262,15 @@ void selectionSort_L(char* let, int size) {
 				flag = 1;
 			}
 		}
-		if (flag == 1)
-		 {
+		if (flag == 1) {
 			swap_L(let, i, mc);
 		}
 	}
 }
-// Selection Sort bitiþ
-
 
 //bubbleSort için sýralama kodlarý *****************************************
 
-//Sayýlar için BubbleSort 
+//Sayýlar için bubbleSort
 void bubleSort_N(int* num, int size) {
 	int i = 0;
 	for (; i < size; i++) {
@@ -238,41 +283,35 @@ void bubleSort_N(int* num, int size) {
 	}
 }
 
-//Harfler için BubbleSort 
+//Harfler için bubbleSort
 void bubleSort_L(char* let, int size) {
 	int i = 0;
-	for (; i < size; i++) 
-	{
+	for (; i < size; i++) {
 		int j = 0;
 		for (; j < size - 1; j++) {
-			if (let[j] > let[j + 1]) 
-			{
+			if (let[j] > let[j + 1]) {
 				swap_L(let, j, j + 1);
 			}
 		}
 	}
 }
-//bubble sort bitiþ
-
 
 //insertionSort için sýralama kodlarý ****************************************
 
-//Sayýlar için insertion sort
-void insertionSort_N(int* num, int size)
- {
+//Sayýlar için insertionSort
+void insertionSort_N(int* num, int size) {
 	int i = 1;
 	for (; i < size; i++) {
 		int fc = num[i];
 		int mc = i;
-		for (; mc > 0 && num[mc - 1] > fc; mc--) 
-		{
+		for (; mc > 0 && num[mc - 1] > fc; mc--) {
 			num[mc] = num[mc - 1];
 		}
 		num[mc] = fc;
 	}
 }
 
-//Harfler için insertion sort
+//Harfler için insertionSort
 void insertionSort_L(char* let, int size) {
 	int i = 1;
 	for (; i < size; i++) {
@@ -284,14 +323,11 @@ void insertionSort_L(char* let, int size) {
 		let[mc] = fc;
 	}
 }
-//Insertion sort bitiþ
 
+//MergeSort için sýralama kodlarý ***************************************
 
-//MergeSort	için sýralama kodlarý ***************************************
-
-//Sayýlar için Merge Sort
-void mergeSort_N(int* num, int i, int j) 
-{
+//Sayýlar için MergeSort
+void mergeSort_N(int* num, int i, int j) {
 	if (i < j) {
 
 		int mc = i + (j - i) / 2;
@@ -302,8 +338,7 @@ void mergeSort_N(int* num, int i, int j)
 		merge_N(num, i, mc, j);
 	}
 }
-void merge_N(int* num, int l, int m, int r)
- {
+void merge_N(int* num, int l, int m, int r) {
 	int i, j, k;
 	int n1 = m - l + 1;
 	int n2 = r - m;
@@ -318,8 +353,7 @@ void merge_N(int* num, int l, int m, int r)
 	i = 0;
 	j = 0;
 	k = l;
-	while (i < n1 && j < n2)
-	 {
+	while (i < n1 && j < n2) {
 		if (L[i] <= R[j]) {
 			num[k] = L[i];
 			i++;
@@ -331,8 +365,7 @@ void merge_N(int* num, int l, int m, int r)
 		k++;
 	}
 
-	while (i < n1) 
-	{
+	while (i < n1) {
 		num[k] = L[i];
 		i++;
 		k++;
@@ -345,7 +378,7 @@ void merge_N(int* num, int l, int m, int r)
 	}
 }
 
-//Harfler için Merge sort
+//Harfler için MergeSort
 void mergeSort_L(char* let, int i, int j) {
 	if (i < j) {
 
@@ -397,38 +430,135 @@ void merge_L(char* let, int l, int m, int r) {
 	}
 }
 
+//QuickSort için sýralama kodlarý **********************************************
 
-//Swap	********************************************
+//Sayýlar için QuickSort
+void quickSort_N(int* num, int lw, int hg) {
+	if (lw < hg) {
+		int pa = quickSortPart_N(num, lw, hg);
+		quickSort_N(num, lw, pa - 1);
+		quickSort_N(num, pa + 1, hg);
+	}
+}
+int quickSortPart_N(int* num, int lw, int hg) {
+	int j;
+	for (j = lw; j <= hg - 1; j++) {
+		if (num[j] < num[hg]) {
+			swap_N(num, j, hg);
+		}
+	}
+	swap_N(num, lw, hg);
+	return lw;
+}
 
-//Sayýlar için
-void swap_N(int* num, int i, int j) 
-{
+//Harfler için QuickSort
+void quickSort_L(char* let, int lw, int hg) {
+	if (lw < hg) {
+		int pa = quickSortPart_L(let, lw, hg);
+		quickSort_L(let, lw, pa - 1);
+		quickSort_L(let, pa + 1, hg);
+	}
+}
+int quickSortPart_L(char* let, int lw, int hg) {
+	int j;
+	for (j = lw; j <= hg - 1; j++) {
+		if (let[j] < let[hg]) {
+			swap_L(let, j, hg);
+		}
+	}
+	swap_L(let, lw, hg);
+	return lw;
+}
+
+
+//HeapSort için sýralama kodlarý *******************************************
+
+//Sayýlar için HeapSort
+void heapSort_N(int* num, int size) {
+	int i;
+	for (i = size / 2 - 1; i >= 0; i--) {
+		heapSortFy_N(num, size, i);
+	}
+	for (i = size - 1; i >= 0; i--) {
+		swap_N(num, 0, i);
+		heapSortFy_N(num, i, 0);
+	}
+}
+void heapSortFy_N(int* num, int size, int i) {
+	int largest = i;
+	int left = 2 * i + 1;
+	int right = 2 * i + 2;
+
+	if (left < size && num[left] > num[largest]) {
+		largest = left;
+	}
+
+	if (right < size && num[right] > num[largest]) {
+		largest = right;
+	}
+
+	if (largest != i) {
+		swap_N(num,i,largest);
+		heapSortFy_N(num, size, largest);
+	}
+}
+void heapSort_L(char* let, int size) {
+	int i;
+	for (i = size / 2 - 1; i >= 0; i--) {
+		heapSortFy_L(let, size, i);
+	}
+	for (i = size - 1; i >= 0; i--) {
+		swap_L(let, 0, i);
+		heapSortFy_L(let, i, 0);
+	}
+}
+void heapSortFy_L(char* let, int size, int i) {
+	int largest = i;
+	int left = 2 * i + 1;
+	int right = 2 * i + 2;
+
+	if (left < size && let[left] > let[largest]) {
+		largest = left;
+	}
+
+	if (right < size && let[right] > let[largest]) {
+		largest = right;
+	}
+
+	if (largest != i) {
+		swap_L(let, i, largest);
+		heapSortFy_L(let, size, largest);
+	}
+}
+
+
+//Swap ********************************************
+
+//sayýlar için HeapSort
+void swap_N(int* num, int i, int j) {
 	int a = num[i];
 	num[i] = num[j];
 	num[j] = a;
 }
 
-//Harfler için
-void swap_L(char* let, int i, int j) 
-{
+//Harfler için HeapSort
+void swap_L(char* let, int i, int j) {
 	char a = let[i];
 	let[i] = let[j];
 	let[j] = a;
 }
 
-//Print	 ********************************************
+//Print	********************************************
 
-//Sayýlar için
-void print_N(int* num, int size) 
-{
+//Sayýlar için HeapSort
+void print_N(int* num, int size) {
 	int i = 0;
 	for (; i < size; i++)
 		printf("%d", num[i]);
 }
 
-//Harfler için
-void print_L(char* let, int size)
- {
+//Harfler için HeapSort
+void print_L(char* let, int size) {
 	int i = 0;
 	for (; i < size; i++)
 		if (let[i] == ' ')
@@ -436,4 +566,4 @@ void print_L(char* let, int size)
 		else
 			printf("%c", let[i]);
 }
-//Merge sort bitiþ
+
