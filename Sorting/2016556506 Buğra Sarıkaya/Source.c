@@ -360,9 +360,9 @@ void establish_selection_quick_sort(int size_no, int size_name, int no[], char n
 	printf("---Quick Sort---");
 	printf("\n");
 	begin = clock();
-	quick_sort_int(no, 0, size_no);
+	quick_sort_int(no, 0, size_no-1);
 	end = clock();
-	show_no(no, size_no-1);
+	show_no(no, size_no);
 	printf("\n");
 	printf("Time: %f", (float)(end - begin) / CLOCKS_PER_SEC);
 	printf("\n");
