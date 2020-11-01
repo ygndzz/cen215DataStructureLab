@@ -228,8 +228,6 @@ void printarrayint(int arr[], int size) {
 	}
 
 }
-
-
 //Quick Sort
 void quicksort(int array[],int first,int last){
     int i; 
@@ -365,8 +363,6 @@ void heapsortname(char arr[], int n)
 
 
 
-
-
 int main() {
 
 	clock_t c;
@@ -430,7 +426,7 @@ int main() {
 	printarrayname(name,namesize );
 	printf("\n Merge Sorting Time for Name: %f\n", ((double)c) / CLOCKS_PER_SEC);
 	
-	
+		
 	quicksort(number, 0, numbersize - 1);
 	c = clock() - c;
 	printf("\n Quick Sort for Number :");	
@@ -442,7 +438,6 @@ int main() {
 	printf("\n Quick Sort for Name  :");	
 	printarrayname(name,namesize );
 	printf("\n Quick Sorting Time for Name: %f\n", ((double)c) / CLOCKS_PER_SEC);
-	
 	
 	heapsort(number, numbersize);
 	c = clock() - c;
