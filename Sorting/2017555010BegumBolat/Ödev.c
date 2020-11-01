@@ -12,6 +12,19 @@ void printArray(int arr[], int n)
     printf("\n"); 
 } 
 
+void swapNumber(int *num1, int *num2)  
+{  
+    int temp = *num1;  
+    *num1 = *num2;  
+    *num2 = temp;  
+}  
+
+void swapName(char *let1, char *let2) // let=letter
+{  
+    char temp = *let1;  
+    *let1 = *let2;  
+    *let2 = temp;  
+}  
 /* Insertion Sort */
 void insertionNumber(int num[], int n)
 {
@@ -45,19 +58,6 @@ void insertionName(char name[], int n)
 	}
 }
 
-void swapNumber(int *num1, int *num2)  
-{  
-    int temp = *num1;  
-    *num1 = *num2;  
-    *num2 = temp;  
-}  
-
-void swapName(int *let1, int *let2) // let=letter
-{  
-    int temp = *let1;  
-    *let1 = *let2;  
-    *let2 = temp;  
-}  
 
 /* Selection Sort */
 void selectionNumber(int num[], int n)
@@ -227,6 +227,129 @@ void bubbleName(char name[], int n)
 	}
 }
 
+/* Quick Sort*/ 
+int partNumber(int num[], int low, int high)
+{	
+    int i = (low- 1);
+	int j;
+	int key = num[high];
+	
+	for(j=low; j <= high-1; j++)
+	{
+		if(num[j]< key)
+		{
+			i++;
+			swapNumber(&num[i], &num[j]);
+		}
+	}
+	swapNumber(&num[i+1], &num[high]);
+	return (i+1);
+}
+void quickNumber(int arr[], int low, int high)
+{
+	if(low<high)
+	{
+		int index = partNumber(arr, low, high);
+		quickNumber(arr, low, index-1);
+		quickNumber(arr,index+1,high);
+	}
+}
+
+char partName(char name[], char low, char high)
+{	
+    int i = (low- 1);
+	int j;
+	char key = name[high];
+	
+	for(j=low; j <= high-1; j++)
+	{
+		if(name[j]< key)
+		{
+			i++;
+			swapName(&name[i], &name[j]);
+		}
+	}
+	swapName(&name[i+1], &name[high]);
+	return (i+1);
+}
+void quickName(char name[], char low, char high)
+{
+	if(low<high)
+	{
+		char index = partName(name, low, high);
+		quickName(name, low, index-1);
+		quickName(name,index+1,high);
+	}
+}
+
+/* Heap Sort */
+void heap(int num[], int len, int i)
+{
+  int largest = i;
+  int l = 2 * i + 1;
+  int r = 2 * i + 2;
+
+  if (l < len && num[l] > num[largest])
+    largest = l;
+
+  if (r < len && num[r] > num[largest])
+    largest = r;
+
+  if (largest != i)
+  {
+    swapNumber(&num[i], &num[largest]);
+    heap(num, len, largest);
+  }
+}
+
+void heapNumber(int num[], int len)
+{
+  int i, j;
+  for (i = len / 2 - 1; i >= 0; i--)
+  {
+    heap(num, len, i);
+  }
+
+  for (j = len - 1; j > 0; j--)
+  {
+    swapNumber(&num[0], &num[j]);
+    heap(num, j, 0);
+  }
+}
+
+void heapSName(char name[], int len, int i)
+{
+  int largest = i;
+  int l = 2 * i + 1;
+  int r = 2 * i + 2;
+
+  if (l < len && name[l] > name[largest])
+    largest = l;
+
+  if (r < len && name[r] > name[largest])
+    largest = r;
+
+  if (largest != i)
+  {
+      swapName(&name[i], &name[largest]);
+      heapSName(name, len, largest);
+  }
+}
+
+void heapName(char name[], int len)
+{
+  int i, j;
+  for (i = len / 2 - 1; i >= 0; i--)
+  {
+      heapSName(name, len, i);
+  }
+
+  for (j = len - 1; j > 0; j--)
+  {
+      swapName(&name[0], &name[j]);
+      heapSName(name, j, 0);
+  }
+}
 int main()
 {
 	int number [] = {2,0,1,7,5,5,5,0,1,0};
@@ -283,7 +406,30 @@ int main()
     printf("Bubble Sort name array:%s\t",name);
     end = clock();
     time_used = ((double) (end-start)) / CLOCKS_PER_SEC;
-    printf("\nBubble Sort time:%f",time_used);
+    printf("\nBubble Sort time:%f\n",time_used);
     
+    //Quick Sort
+    start = clock();
+    quickNumber(number, 0 ,s_number-1);
+    printf("\nQuick Sort number array:\t",number);
+    printArray(number,s_number);
+    
+    quickName(name, 0 ,s_name-1);
+    printf("Quick Sort name array:%s\t",name);
+    end = clock();
+    time_used = ((double) (end-start)) / CLOCKS_PER_SEC;
+    printf("\nQuick Sort time:%f\n",time_used);
+    
+    //Heap Sort
+    start = clock();
+    heapNumber(number,s_number);
+    printf("\nHeap Sort number array:\t",number);
+    printArray(number,s_number);
+    
+    heapName(name,s_name);
+    printf("Heap Sort name array:%s\t",name);
+    end = clock();
+    time_used = ((double) (end-start)) / CLOCKS_PER_SEC;
+    printf("\nHeap Sort time:%f\n",time_used);
 	return 0;
 }
