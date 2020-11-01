@@ -253,6 +253,7 @@ mergeSort_C (char arr[], int l, int r)
 }
 
 void
+
 quicksort_N(int num[], int x, int y)
 {
 	int z, w, pivot, temp;
@@ -417,6 +418,7 @@ heap_C(char name[], int size)
 }
 
 void
+
 printArray (int arr[], int n)
 {
   int i;
@@ -516,6 +518,7 @@ main ()
   printf ("%s\n", name3);
   printf ("Time of char Merge Sort: %f\n\n",
 	  ((double) start) / CLOCKS_PER_SEC);
+
  //-----------------
  
  //Quick
@@ -558,6 +561,7 @@ main ()
   printf ("%s\n", name5);
   printf ("Time of char Heap Sort: %f\n\n",
 	  ((double) start) / CLOCKS_PER_SEC);
+
 
   return 0;
 }
