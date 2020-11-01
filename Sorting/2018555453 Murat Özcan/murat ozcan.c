@@ -450,3 +450,4 @@ void heapSortchar(char arr[], char n)
     printf("Running time of heapSort: %f \n",((double)t) / CLOCKS_PER_SEC);
 
     return 0;
+}
