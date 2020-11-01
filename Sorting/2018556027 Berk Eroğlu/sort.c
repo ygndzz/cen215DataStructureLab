@@ -460,7 +460,7 @@ int main()
     end = clock();
     total = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\n\nInsertion sort for name array : \n");
+    printf("\nInsertion sort for name array : \n");
     printf("%s\n", name);
     printf("time = %f", total);
     //Insertion sort for name array
@@ -474,7 +474,7 @@ int main()
     end = clock();
     total = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\n\nSelection sort for number array : \n");
+    printf("\nSelection sort for number array : \n");
     printArray(num2, sizeNum);
     printf("time = %f", total);
     //END Selection sort for number array
@@ -485,7 +485,7 @@ int main()
     end = clock();
     total = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\n\nSelection sort for name array : \n");
+    printf("\nSelection sort for name array : \n");
     printf("%s\n", name2);
     printf("time = %f\n", total);
     //END Selection sort for name array
@@ -499,7 +499,7 @@ int main()
     end = clock();
     total = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\n\nMerge sort for number array : \n");
+    printf("\nMerge sort for number array : \n");
     printArray(num3, sizeNum);
     printf("time = %f\n", total);
     //END Merge sort for num array
@@ -510,7 +510,7 @@ int main()
     end = clock();
     total = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\n\nMerge sort for name array : \n");
+    printf("\nMerge sort for name array : \n");
     printf("%s\n", name3);
     printf("time = %f\n", total);
     //END Merge sort for name array
@@ -524,7 +524,7 @@ int main()
     end = clock();
     total = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\n\nBubble sort for number array : \n");
+    printf("\nBubble sort for number array : \n");
     printArray(num4, sizeNum);
     printf("time = %f\n", total);
     //END Bubble sort for num array
@@ -535,7 +535,7 @@ int main()
     end = clock();
     total = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\n\nBubble sort for name array : \n");
+    printf("\nBubble sort for name array : \n");
     printf("%s\n", name4);
     printf("time = %f\n", total);
     //END Bubble sort for name array
@@ -549,7 +549,7 @@ int main()
     end = clock();
     total = (double)(end - start) / CLOCKS_PER_SEC;
 	
-    printf("\n\nQuick sort for number array : \n");
+    printf("\nQuick sort for number array : \n");
     printArray(num5, sizeNum);
     printf("Time = %f\n", total);	
     //END Quick sort for number array
@@ -560,23 +560,21 @@ int main()
     end = clock();
     total = (double)(end - start) / CLOCKS_PER_SEC;
    
-    printf("\n Quick sort for name array : \n");
+    printf("\nQuick sort for name array : \n");
     printf("%s\n", name5);
     printf("Time = %f\n", total);
     //END Quick sort name array
-	
     
     int num6[] = { 2, 0, 1, 8, 5, 5, 6, 0, 2, 7  };
     char name6[] = "BERK EROGLU";
     
-	
     //Heap sort for number array
     start = clock();
     heapSortNum (num6, sizeNum);
     end= clock();
     total = (double)(end - start) / CLOCKS_PER_SEC;
      
-    printf("\n\nHeap sort for number array : \n");
+    printf("\nHeap sort for number array : \n");
     printArray(num6, sizeNum);
     printf("Time = %f\n", total);
     //END Heap sort for number array
@@ -591,6 +589,6 @@ int main()
     printf("\n Heap sort for name array : \n");
     printf("%s\n", name6);
     printf("Time = %f\n", total);
-    //END Heap sort for name array
+   //END Heap sort for name array
   
 }
