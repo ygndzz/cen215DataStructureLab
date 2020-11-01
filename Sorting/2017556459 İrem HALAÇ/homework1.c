@@ -197,6 +197,125 @@ void mergeSortName(char arr[], int left, int right) {
 	}
 }
 
+//QUICK SORT
+int partitionIdNumber(int arr[], int left, int right)
+{
+    int pivot = arr[right];
+    int low = (left - 1);
+    int high;
+    
+    for ( high = left; high <= right- 1; high++)
+    {
+        if (arr[high] <= pivot)
+        {
+            low++;
+            swapIdNumber(&arr[low], &arr[high]);
+        }
+    }
+    swapIdNumber(&arr[low + 1], &arr[right]);
+    return (low + 1);
+}
+
+void quickSortIdNumber(int arr[], int left, int right)
+{
+    if (left < right)
+    {
+        int pivot = partitionIdNumber(arr, left, right);
+        quickSortIdNumber(arr, left, pivot - 1);
+        quickSortIdNumber(arr, pivot + 1, right);
+    }
+}
+
+char partitionName(char arr[],int left,int right){
+    int pivot = arr[right];
+    int low = (left - 1);
+    int high;
+    
+    for ( high = left; high <= right- 1; high++)
+    {
+        if (arr[high] <= pivot)
+        {
+            low++;
+            swapName(&arr[low], &arr[high]);
+        }
+    }
+    swapName(&arr[low + 1], &arr[right]);
+    return (low + 1);
+}
+
+void quickSortName(char arr[], int left, int right)
+{
+    if (left < right)
+    {
+        int pivot = partitionName(arr, left, right);
+        quickSortName(arr, left, pivot - 1);
+        quickSortName(arr, pivot + 1, right);
+    }
+}
+
+//HEAP SORT
+void heapifyIdNumber(int arr[],int size,int i) {
+	int largest = i;
+	int leftChild = 2 * i + 1;
+	int rightChild = 2 * i + 2;
+	
+	if (arr[leftChild] > arr[largest] && leftChild<size) 
+		largest = leftChild;
+
+		if (arr[rightChild] > arr[largest] && rightChild<size) 
+			largest = rightChild;
+		if (largest != i) {
+			swapIdNumber(&arr[i], &arr[largest]);
+			heapifyIdNumber(arr, size, largest);
+		}
+
+}
+void heapSortIdNumber(int arr[],int size) {
+	int i;
+	for (i = size / 2 - 1; i >= 0;i-- ) {
+		heapifyIdNumber(arr, size, i);
+	}
+
+	for (i = size - 1; i > 0; i--) {
+		swapIdNumber(&arr[0],&arr[i]);
+		heapifyIdNumber(arr , i , 0);
+	}
+
+}
+
+
+void heapifyName(char arr[],int size,int i) {
+	int largest = i;
+	int leftChild = 2 * i + 1;
+	int rightChild = 2 * i + 2;
+	
+	if (arr[leftChild] > arr[largest] && leftChild<size) 
+		largest = leftChild;
+
+		if (arr[rightChild] > arr[largest] && rightChild<size) 
+			largest = rightChild;
+		if (largest != i) {
+			swapName(&arr[i], &arr[largest]);
+			heapifyName(arr, size, largest);
+		}
+
+}
+void heapSortName(char arr[],int size) {
+	int i;
+	for (i = size / 2 - 1; i >= 0;i-- ) {
+		heapifyName(arr, size, i);
+	}
+
+	for (i = size - 1; i > 0; i--) {
+		swapName(&arr[0],&arr[i]);
+		heapifyName(arr , i , 0);
+	}
+
+}
+
+
+
+
 //PRINT SORTS
 void printSortIdNumber(int arr[], int size) {
 	int i;
@@ -219,7 +338,7 @@ void printSortName(char arr[], int size) {
 
 int main() {
 	
-	printf(" CEN215 - DATA STRUCTURES LAB HOMEWORK #1\n");
+	printf(" CEN215 - DATA STRUCTURES LAB HOMEWORK #1 and #2\n");
 	printf(" ID Number: 2017556459\n");
 	printf(" Name: IREM HALAC\n\n\n");
 	
@@ -292,6 +411,39 @@ int main() {
 	timer = clock() - timer;
 	printSortName(Name4, NameSize4);
 	printf(" Running time of Bubble Sort for name: %f\n\n", ((double)(timer)) / CLOCKS_PER_SEC);
+
+    printf(" QUICK SORT\n");
+	int IdNumber5[] = { 2,0,1,7,5,5,6,4,5,9 };
+	char Name5[] = "IREM HALAC";
+	int IdNumberSize5 = sizeof(IdNumber5) / sizeof(IdNumber5[0]);
+	int NameSize5 = strlen(Name5);
+	quickSortIdNumber(IdNumber5, 0,IdNumberSize5-1);
+	timer = clock() - timer;
+	printSortIdNumber(IdNumber5, IdNumberSize5);
+	printf(" Running time of Quick Sort for ID Number: %f\n", ((double)(timer)) / CLOCKS_PER_SEC);
+
+	quickSortName(Name5, 0, NameSize5-1);
+	timer = clock() - timer;
+	printSortName(Name5, NameSize5);
+	printf(" Running time of Quick Sort for name: %f\n\n", ((double)(timer)) / CLOCKS_PER_SEC);
+	
+	
+	printf(" HEAP SORT\n");
+	int IdNumber6[] = { 2,0,1,7,5,5,6,4,5,9 };
+	char Name6[] = "IREM HALAC";
+	int IdNumberSize6 = sizeof(IdNumber6) / sizeof(IdNumber6[0]);
+	int NameSize6 = strlen(Name6);
+	heapSortIdNumber(IdNumber6, IdNumberSize6);
+	timer = clock() - timer;
+	printSortIdNumber(IdNumber6, IdNumberSize6);
+	printf(" Running time of Heap Sort for ID Number: %f\n", ((double)(timer)) / CLOCKS_PER_SEC);
+
+	heapSortName(Name6, NameSize6);
+	timer = clock() - timer;
+	printSortName(Name6, NameSize6);
+	printf(" Running time of Heap Sort for name: %f\n\n", ((double)(timer)) / CLOCKS_PER_SEC);
+
+
 
 
 
