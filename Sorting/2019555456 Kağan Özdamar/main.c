@@ -1,6 +1,6 @@
-#include <string.h>
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 #include <assert.h>
 
 
@@ -207,7 +207,130 @@ void printArray(int arr[], int n)
     for (i = 0; i < n; i++) 
         printf("%d ", arr[i]); 
     printf("\n"); } 
-   
+
+// quick sort and heap sort
+int partition(int arr[], int low, int high)
+{
+  int pivot = arr[high];
+  int i = (low - 1);
+  int j;
+  for ( j = low; j <= high - 1; j++)
+  {
+    if (arr[j] < pivot)
+    {
+      i++;
+      swap(&arr[i], &arr[j]);
+    }
+  }
+  swap(&arr[i + 1], &arr[high]);
+  return (i + 1);
+}
+
+void quick_sort(int arr[], int low, int high)
+{
+  if (low < high)
+  {
+    int pi = partition(arr, low, high);
+
+    quick_sort(arr, low, pi - 1);
+      quick_sort(arr, pi + 1, high);
+  }
+}
+char partitionChar(char arr[], int low, int high)
+{
+  int pivot = arr[high];
+
+  int i = (low - 1);
+  int j;
+  for ( j = low; j <= high - 1; j++)
+  {
+    if (arr[j] < pivot)
+    {
+      i++;
+      swapChar(&arr[i], &arr[j]);
+    }
+  }
+    swapChar(&arr[i + 1], &arr[high]);
+  return (i + 1);
+}
+void quick_sort_char(char arr[], int low, int high)
+{
+  if (low < high)
+  {
+    int pIndex = partitionChar(arr, low, high);
+
+    quick_sort_char(arr, low, pIndex - 1);
+    quick_sort_char(arr, pIndex + 1, high);
+  }
+}
+
+void heapify(int arr[], int n, int i)
+{
+  int largest = i;
+  int l = 2 * i + 1;
+  int r = 2 * i + 2;
+
+  if (l < n && arr[l] > arr[largest])
+    largest = l;
+
+  if (r < n && arr[r] > arr[largest])
+    largest = r;
+
+  if (largest != i)
+  {
+    swap(&arr[i], &arr[largest]);
+    heapify(arr, n, largest);
+  }
+}
+
+void heap_sort(int arr[], int n)
+{
+  int i, j;
+  for (i = n / 2 - 1; i >= 0; i--)
+  {
+    heapify(arr, n, i);
+  }
+
+  for (j = n - 1; j > 0; j--)
+  {
+    swap(&arr[0], &arr[j]);
+    heapify(arr, j, 0);
+  }
+}
+
+void heapify_char(char arr[], int n, int i)
+{
+  int largest = i;
+  int l = 2 * i + 1;
+  int r = 2 * i + 2;
+
+  if (l < n && arr[l] > arr[largest])
+    largest = l;
+
+  if (r < n && arr[r] > arr[largest])
+    largest = r;
+
+  if (largest != i)
+  {
+      swapChar(&arr[i], &arr[largest]);
+      heapify_char(arr, n, largest);
+  }
+}
+
+void heapSortChar(char arr[], int n)
+{
+  int i, j;
+  for (i = n / 2 - 1; i >= 0; i--)
+  {
+      heapify_char(arr, n, i);
+  }
+
+  for (j = n - 1; j > 0; j--)
+  {
+      swapChar(&arr[0], &arr[j]);
+      heapify_char(arr, j, 0);
+  }
+}
 
 
 int main() {
@@ -271,10 +394,41 @@ int main() {
     t = clock() - t;
     printArray(numZ, nZ); 
     printf("time for merge sort: %lf\n", ((double)t) / CLOCKS_PER_SEC);
-    mergeSortChar(nameZ, 0, charSizeZ - 1);
+    
+	mergeSortChar(nameZ, 0, charSizeZ - 1);
     t = clock() - t;
     printf("%s\n", nameZ);
     printf("time for merge char sort: %lf\n", ((double)t) / CLOCKS_PER_SEC);
+    
+	// quick sort and heap sort
+	int numA[] = { 2, 0, 1, 9, 5, 5, 5, 4, 5, 6 };
+	char nameA[] = "KAGAN OZDAMAR";
+    int nA = sizeof(numA) / sizeof(numA[0]); 
+    int charSizeA = strlen(nameA);
 
+    quick_sort(numA, 0, nA - 1);
+    t = clock() - t;
+    printArray(numA, nA); 
+    printf("time for quick sort: %lf\n", ((double)t) / CLOCKS_PER_SEC);
+    quick_sort_char(nameA, 0, charSizeA - 1);
+    t = clock() - t;
+    printf("%s\n", nameA);
+    printf("time for quick char sort: %lf\n", ((double)t) / CLOCKS_PER_SEC);
+
+
+    int numB[] = { 2, 0, 1, 9, 5, 5, 5, 4, 5, 6 }; 
+    char nameB[] = "KAGAN OZDAMAR"; 
+    int nB = sizeof(numB) / sizeof(numB[0]); 
+    int charSize5 = strlen(nameB);
+
+    heap_sort(numB, nB);
+    t = clock() - t;
+    printArray(numB, nB); 
+    printf("time for heap sort: %f\n", ((double)t) / CLOCKS_PER_SEC);
+    heapSortChar(nameB, charSize5);
+    t = clock() - t;
+    printf("%s\n", nameB);
+    printf("time for heap char sort: %f\n", ((double)t) / CLOCKS_PER_SEC);
+ 
     return 0;
-} 
+}
