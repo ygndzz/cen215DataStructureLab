@@ -184,6 +184,7 @@ void mergeSortName(char arr[], int left, int right) {
     }
 }
 
+
 int partitionId(int arr[], int left, int right)
 {
     int pivot = arr[right];
@@ -295,6 +296,7 @@ void heapSortName(char arr[],int size) {
 
 }
 
+
 void printSortId(int arr[], int size) {
     int i;
     for (i = 0; i < size; ++i) {
@@ -367,6 +369,7 @@ int main()
     mergeSortName(Name, 0, size2 - 1);
     t = clock() - t;
     printSortName(Name, size2);
+
     printf("Time of merge sort Name: %f\n\n", ((double)(t)) / CLOCKS_PER_SEC);
     
     printf("--QUICK SORT--\n");
@@ -391,5 +394,6 @@ int main()
 	printSortName(Name, size2);
 	printf("Time of heap sort Name: %f\n\n", ((double)(t)) / CLOCKS_PER_SEC);
 
+    printf("Time of merge sort Name: %f\n", ((double)(t)) / CLOCKS_PER_SEC);
     return 0;
 }
