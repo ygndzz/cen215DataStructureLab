@@ -2,36 +2,38 @@
 #include <string.h>
 #include <assert.h>
 #include <time.h>
-
+//insertion Sort
 void insertionSort(int arr[], int n)
 {
-    int i, x, j;
+    int i, key, j;
     for (i = 1; i < n; i++)
     {
-        x = arr[i];
+        key = arr[i];
         j = i - 1;
-        while (j >= 0 && arr[j] > x)
+        while (j >= 0 && arr[j] > key)
         {
             arr[j + 1] = arr[j];
             j = j - 1;
         }
-        arr[j + 1] = x;
+        arr[j + 1] = key;
     }
 }
-void insertionSortCh(char arr[], int n)
+// Char array insertion sort
+
+void insertionSortChar(char arr[], int n)
 {
     int i, j;
-    char x;
+    char key;
     for (i = 1; i < n; i++)
     {
-        x = arr[i];
+        key = arr[i];
         j = i - 1;
-        while (j >= 0 && arr[j] > x)
+        while (j >= 0 && arr[j] > key)
         {
             arr[j + 1] = arr[j];
             j = j - 1;
         }
-        arr[j + 1] = x;
+        arr[j + 1] = key;
     }
 }
 void swap(int *xp, int *yp)
@@ -41,12 +43,14 @@ void swap(int *xp, int *yp)
     *yp = temp;
 }
 
-void swapCh(char *xp, char *yp)
+void swapChar(char *xp, char *yp)
 {
     char temp = *xp;
     *xp = *yp;
     *yp = temp;
 }
+
+//Selection
 void selectionSort(int arr[], int n)
 {
     int i, j, min;
@@ -60,7 +64,7 @@ void selectionSort(int arr[], int n)
     }
 }
 
-void selectionSortCh(char arr[], int n)
+void selectionSortChar(char arr[], int n)
 {
     int i, j;
     char min;
@@ -70,9 +74,10 @@ void selectionSortCh(char arr[], int n)
         for (j = i + 1; j < n; j++)
             if (arr[j] < arr[min])
                 min = j;
-        swapCh(&arr[min], &arr[i]);
+        swapChar(&arr[min], &arr[i]);
     }
 }
+// Bubble Sort
 void bubbleSort(int arr[], int n)
 {
     int i, j;
@@ -82,32 +87,33 @@ void bubbleSort(int arr[], int n)
                 swap(&arr[j], &arr[j + 1]);
 }
 
-void bubbleSortCh(char arr[], int n)
+void bubbleSortChar(char arr[], int n)
 {
     int i, j;
     for (i = 0; i < n - 1; i++)
         for (j = 0; j < n - i - 1; j++)
             if (arr[j] > arr[j + 1])
-                swapCh(&arr[j], &arr[j + 1]);
+                swapChar(&arr[j], &arr[j + 1]);
 }
+// Merge sort
 void merge(int arr[], int l, int m, int r)
 {
-    int i, j, k, x1, x2;
-    x1 = m - l + 1;
-    x2 = r - m;
+    int i, j, k, n1, n2;
+    n1 = m - l + 1;
+    n2 = r - m;
 
-    int L[x1], R[x2];
+    int L[n1], R[n2];
 
-    for (i = 0; i < x1; i++)
+    for (i = 0; i < n1; i++)
         L[i] = arr[l + i];
-    for (j = 0; j < x2; j++)
+    for (j = 0; j < n2; j++)
         R[j] = arr[m + 1 + j];
 
     i = 0;
     j = 0;
     k = l;
 
-    while (i < x1 && j < x2)
+    while (i < n1 && j < n2)
     {
         if (L[i] <= R[j])
         {
@@ -122,14 +128,14 @@ void merge(int arr[], int l, int m, int r)
         k++;
     }
 
-    while (i < x1)
+    while (i < n1)
     {
         arr[k] = L[i];
         i++;
         k++;
     }
 
-    while (j < x2)
+    while (j < n2)
     {
         arr[k] = R[j];
         j++;
@@ -150,24 +156,24 @@ void mergeSort(int arr[], int l, int r)
     }
 }
 
-void mergeCh(char arr[], int l, int m, int r)
+void mergeChar(char arr[], int l, int m, int r)
 {
-    int i, j, k, x1, x2;
-    x1 = m - l + 1;
-    x2 = r - m;
+    int i, j, k, n1, n2;
+    n1 = m - l + 1;
+    n2 = r - m;
 
-    int L[x1], R[x2];
+    int L[n1], R[n2];
 
-    for (i = 0; i < x1; i++)
+    for (i = 0; i < n1; i++)
         L[i] = arr[l + i];
-    for (j = 0; j < x2; j++)
+    for (j = 0; j < n2; j++)
         R[j] = arr[m + 1 + j];
 
     i = 0;
     j = 0;
     k = l;
 
-    while (i < x1 && j < x2)
+    while (i < n1 && j < n2)
     {
         if (L[i] <= R[j])
         {
@@ -182,14 +188,14 @@ void mergeCh(char arr[], int l, int m, int r)
         k++;
     }
 
-    while (i < x1)
+    while (i < n1)
     {
         arr[k] = L[i];
         i++;
         k++;
     }
 
-    while (j < x2)
+    while (j < n2)
     {
         arr[k] = R[j];
         j++;
@@ -197,16 +203,139 @@ void mergeCh(char arr[], int l, int m, int r)
     }
 }
 
-void mergeSortCh(char arr[], int l, int r)
+void mergeSortChar(char arr[], int l, int r)
 {
     if (l < r)
     {
         int m = l + (r - l) / 2;
 
-        mergeSortCh(arr, l, m);
-        mergeSortCh(arr, m + 1, r);
+        mergeSortChar(arr, l, m);
+        mergeSortChar(arr, m + 1, r);
 
-        mergeCh(arr, l, m, r);
+        mergeChar(arr, l, m, r);
+    }
+}
+
+//quick sort
+int partition(int arr[], int low, int high)
+{
+    int pivot = arr[high];
+    int i = (low - 1);
+    int j;
+    for (j = low; j <= high - 1; j++)
+    {
+        if (arr[j] < pivot)
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+void quickSort(int arr[], int low, int high)
+{
+    if (low < high)
+    {
+        int part = partition(arr, low, high);
+
+        quickSort(arr, low, part - 1);
+        quickSort(arr, part + 1, high);
+    }
+}
+
+char partitionChar(char arr[], int low, int high)
+{
+    int pivot = arr[high];
+    int i = (low - 1);
+    int j;
+    for (j = low; j <= high - 1; j++)
+    {
+        if (arr[j] < pivot)
+        {
+            i++;
+            swapChar(&arr[i], &arr[j]);
+        }
+    }
+    swapChar(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+void quickSortChar(char arr[], int low, int high)
+{
+    if (low < high)
+    {
+        int part = partitionChar(arr, low, high);
+
+        quickSortChar(arr, low, part - 1);
+        quickSortChar(arr, part + 1, high);
+    }
+}
+
+//heap sort
+
+void heapify(int arr[], int n, int i)
+{
+    int largest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
+
+    if (l < n && arr[l] > arr[largest])
+        largest = l;
+
+    if (r < n && arr[r] > arr[largest])
+        largest = r;
+
+    if (largest != i)
+    {
+        swap(&arr[i], &arr[largest]);
+        heapify(arr, n, largest);
+    }
+}
+
+void heapSort(int arr[], int n)
+{
+    int i, j;
+    for (i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+
+    for (j = n - 1; j > 0; j--)
+    {
+        swap(&arr[0], &arr[j]);
+        heapify(arr, j, 0);
+    }
+}
+
+void heapifyChar(char arr[], int n, int i)
+{
+    int largest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
+
+    if (l < n && arr[l] > arr[largest])
+        largest = l;
+
+    if (r < n && arr[r] > arr[largest])
+        largest = r;
+
+    if (largest != i)
+    {
+        swapChar(&arr[i], &arr[largest]);
+        heapifyChar(arr, n, largest);
+    }
+}
+
+void heapSortChar(char arr[], int n)
+{
+    int i, j;
+    for (i = n / 2 - 1; i >= 0; i--)
+        heapifyChar(arr, n, i);
+
+    for (j = n - 1; j > 0; j--)
+    {
+        swapChar(&arr[0], &arr[j]);
+        heapifyChar(arr, j, 0);
     }
 }
 
@@ -220,65 +349,114 @@ void printArray(int arr[], int n)
 
 int main()
 {
+
+    //Selection Sort
     clock_t t;
 
-    int ID[] = {2, 0, 1, 7, 5, 5, 6, 4, 5, 5};
+    int no[] = {2, 0, 1, 7, 5, 5, 6, 4, 5, 5};
+
     char name[] = "batuhan cagatay yolcu";
-    int n = sizeof(ID) / sizeof(ID[0]);
+    int n = sizeof(no) / sizeof(no[0]);
     int charSize = strlen(name);
 
     t = clock();
-    insertionSort(ID, n);
+    insertionSort(no, n);
     t = clock() - t;
-    printArray(ID, n);
-    printf("insertion sort time: %lf\n", ((double)t) / CLOCKS_PER_SEC);
-    insertionSortCh(name, charSize);
+    printArray(no, n);
+    printf("insertion sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
+
+    insertionSortChar(name, charSize);
+
     t = clock() - t;
     printf("%s\n", name);
-    printf("insertion char sort time: %lf\n", ((double)t) / CLOCKS_PER_SEC);
 
-    int IDX[] = {2, 0, 1, 7, 5, 5, 6, 4, 5, 5};
-    char namex[] = "batuhan cagatay yolcu";
-    int x1 = sizeof(IDX) / sizeof(IDX[0]);
-    int charSizeX = strlen(namex);
-    selectionSort(IDX, x1);
+    printf("insertion char sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
+
+    //Selection Sort
+
+    int no1[] = {2, 0, 1, 7, 5, 5, 6, 4, 5, 5};
+
+    char name1[] = "batuhan cagatay yolcu";
+    int n1 = sizeof(no1) / sizeof(no1[0]);
+    int charSize1 = strlen(name1);
+    selectionSort(no1, n1);
     t = clock() - t;
-    printArray(IDX, x1);
-    printf("selection sort time: %lf\n", ((double)t) / CLOCKS_PER_SEC);
+    printArray(no1, n1);
+    printf("selection sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
 
-    selectionSortCh(namex, charSizeX);
+    selectionSortChar(name1, charSize1);
     t = clock() - t;
-    printf("%s\n", namex);
-    printf("selection char sort time: %lf\n", ((double)t) / CLOCKS_PER_SEC);
+    printf("%s\n", name1);
+    printf("selection char sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
 
-    int IDY[] = {2, 0, 1, 7, 5, 5, 5, 4, 5, 5};
-    char namey[] = "batuhan cagatay yolcu";
-    int nY = sizeof(IDY) / sizeof(IDY[0]);
-    int charSizeY = strlen(namey);
+    //Bubble Sort
 
-    bubbleSort(IDY, nY);
+    int no2[] = {2, 0, 1, 7, 5, 5, 6, 4, 5, 5};
+
+    char name2[] = "batuhan cagatay yolcu";
+    int n2 = sizeof(no2) / sizeof(no2[0]);
+    int charSize2 = strlen(name2);
+
+    bubbleSort(no2, n2);
     t = clock() - t;
-    printArray(IDY, nY);
-    printf("bubble sort time: %lf\n", ((double)t) / CLOCKS_PER_SEC);
+    printArray(no2, n2);
+    printf("bubble sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
 
-    bubbleSortCh(namey, charSizeY);
+    bubbleSortChar(name2, charSize2);
     t = clock() - t;
-    printf("%s\n", namey);
-    printf("bubble char sort time: %lf\n", ((double)t) / CLOCKS_PER_SEC);
+    printf("%s\n", name2);
+    printf("bubble char sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
 
-    int IDZ[] = {2, 0, 1, 7, 5, 5, 6, 4, 5, 5};
-    char namez[] = "batuhan cagatay yolcu";
-    int nZ = sizeof(IDZ) / sizeof(IDZ[0]);
-    int charSizeZ = strlen(namez);
+    //Merge Sort
 
-    mergeSort(IDZ, 0, nZ - 1);
+    int no3[] = {2, 0, 1, 7, 5, 5, 6, 4, 5, 5};
+
+    char name3[] = "batuhan cagatay yolcu";
+    int n3 = sizeof(no3) / sizeof(no3[0]);
+    int charSize3 = strlen(name3);
+
+    mergeSort(no3, 0, n3 - 1);
     t = clock() - t;
-    printArray(IDZ, nZ);
-    printf("merge sort time: %lf\n", ((double)t) / CLOCKS_PER_SEC);
-    mergeSortCh(namez, 0, charSizeZ - 1);
+    printArray(no3, n3);
+    printf("merge sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
+    mergeSortChar(name3, 0, charSize3 - 1);
     t = clock() - t;
-    printf("%s\n", namez);
-    printf("merge char sort time: %lf\n", ((double)t) / CLOCKS_PER_SEC);
+    printf("%s\n", name3);
+    printf("merge char sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
+
+    //Quick Sort
+
+    int no4[] = {2, 0, 1, 7, 5, 5, 6, 4, 5, 5};
+
+    char name4[] = "batuhan cagatay yolcu";
+    int n4 = sizeof(no4) / sizeof(no4[0]);
+    int charSize4 = strlen(name4);
+
+    quickSort(no4, 0, n4 - 1);
+    t = clock() - t;
+    printArray(no4, n4);
+    printf("quick sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
+    quickSortChar(name4, 0, charSize4 - 1);
+    t = clock() - t;
+    printf("%s\n", name4);
+    printf("quick char sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
+
+    //Heap Sort
+
+    int no5[] = {2, 0, 1, 7, 5, 5, 6, 4, 5, 5};
+
+    char name5[] = "batuhan cagatay yolcu";
+    int n5 = sizeof(no5) / sizeof(no5[0]);
+    int charSize5 = strlen(name5);
+
+    heapSort(no5, n5);
+    t = clock() - t;
+    printArray(no5, n5);
+    printf("heap sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
+    heapSortChar(name5, charSize5);
+    t = clock() - t;
+    printf("%s\n", name5);
+    printf("heap char sort time: %f\n", ((double)t) / CLOCKS_PER_SEC);
 
     return 0;
 }
