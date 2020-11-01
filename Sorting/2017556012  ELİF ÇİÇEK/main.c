@@ -246,6 +246,191 @@ void  mergesort_ch(char array[], int l, int r)
     }
 }
 
+
+void quicksort(int array[], int a, int b)
+{
+    int  g, e;
+    int  piv;
+    int  tmp;
+
+    if (a < b)
+    {
+        piv = a;
+        g = a;
+        e = b;
+
+        while (g < e)
+        {
+            while (array[g] <= array[piv] && a < b)
+                g++;
+
+            while (array[e] > array[piv])
+                e--;
+
+            if (g < e)
+            {
+                tmp = array[g];
+                array[g] = array[e];
+                array[e] = tmp;
+            }
+        }
+
+
+        tmp = array[piv];
+
+        array[piv] = array[e];
+        array[e] = tmp;
+
+
+        quicksort(array, a, e - 1);
+        quicksort(array, e + 1, b);
+
+    }
+}
+
+
+
+  void quicksort_ch(char NAME[], int a, int b)
+ {
+      int  g, e;
+      int  piv;
+      int  tmp;
+
+    if (a < b)
+    {
+        piv = a;
+        g = a;
+        e = b;
+
+        while (g < e)
+        {
+            while (NAME[g] <= NAME[piv] && a < b)
+                g++;
+            while (NAME[e] > NAME[piv])
+                e--;
+
+            if (g < e)
+            {
+                tmp = NAME[g];
+                NAME[g] = NAME[e];
+                NAME[e] = tmp;
+            }
+        }
+
+        tmp = NAME[piv];
+
+        NAME[piv] = NAME[e];
+        NAME[e] = tmp;
+
+        quicksort_ch(NAME, a, e - 1);
+        quicksort_ch(NAME, e + 1, b);
+
+    }
+} 
+
+  void  heap_num(int array[], int size, int a)
+  {
+      int tmp;
+
+      int v = a;
+      int y = 2 * a + 1;
+      int z = 2 * a + 2;
+
+      if (y < size && array[y] >array[v])
+      {
+          v = y;
+      }
+
+      if (z < size && array[z] > array[v])
+      {
+          v = z;
+      }
+
+      if (v != a)
+      {
+          tmp = array[a];
+
+          array[a] = array[v];
+          array[v] = tmp;
+
+
+          heap_num(array, size, v);
+      }
+  }
+
+
+  void heap(int array[], int size)
+  {
+
+      int tmp, a;
+
+      for (a = size / 2 - 1; a >= 0; a--)
+      {
+          heap_num(array, size, a);
+      }
+
+      for (a = size - 1; a >= 0; a--)
+      {
+          tmp = array[0];
+          array[0] = array[a];
+          array[a] = tmp;
+          heap_num(array, a, 0);
+      }
+  }
+
+   void heapName(char NAME[], int size, int a)
+
+  {
+      int tmp;
+      int v = a;
+      int y = 2 * a + 1;
+      int z = 2 * a + 2;
+
+      if (y < size && NAME[y] > NAME[v])
+      {
+          v = y;
+      }
+
+      if (z < size && NAME[z] > NAME[v])
+      {
+          v = z;
+      }
+
+      if (v != a)
+      {
+          tmp = NAME[a];
+
+          NAME[a] = NAME[v];
+          NAME[v] = tmp;
+
+          heapName(NAME, size, v);
+      }
+  }
+
+
+   void heap_ch(char NAME[], int size)
+   {
+
+       int tmp, a;
+
+       for (a = size / 2 - 1; a >= 0; a--)
+       {
+           heapName(NAME, size, a);
+       }
+
+       for (a = size - 1; a >= 0; a--)
+       {
+           tmp = NAME[0];
+
+           NAME[0] = NAME[a];
+           NAME[a] = tmp;
+
+
+           heapName(NAME, a, 0);
+       }
+   }
+
+
 void printArray(int array[], int n1)
 {
 
@@ -355,6 +540,55 @@ int main()
     printf("%s\n", NAME4);
     printf("Time of char Merge Sort: %f\n\n",
         ((double)time) / CLOCKS_PER_SEC);
+
+
+    //Quick
+
+
+    int School_Number5[] = { 2, 0, 1, 7, 5, 5, 6, 0, 1, 2 };
+    char NAME5[] = "Elif Cicek";
+
+    int n5 = sizeof(School_Number5) / sizeof(School_Number5[0]);
+    int charSize4 = strlen(NAME5);
+
+    quicksort(School_Number5, 0, n3 - 1);
+    time = clock() - time;
+
+    printArray(School_Number5, n4);
+    printf("Time of Quick Sort: %f\n", ((double)time) / CLOCKS_PER_SEC);
+
+    quicksort_ch(NAME5, 0, charSize4 - 1);
+    time = clock() - time;
+
+    printf("%s\n", NAME5);
+    printf("Time of char Quick Sort: %f\n\n",
+        ((double)time) / CLOCKS_PER_SEC);
+    //-----------------
+
+
+   
+    //Heap
+
+
+    int School_Number6[] = { 2, 0, 1, 7, 5, 5, 6, 0, 1, 2 };
+    char NAME6[] = "Elif Cicek";
+
+    int n6 = sizeof(School_Number6) / sizeof(School_Number6[0]);
+    int charSize5 = strlen(NAME6);
+
+    heap(School_Number6, n5);
+    time = clock() - time;
+
+    printArray(School_Number6, n5);
+    printf("Time of Heap Sort: %f\n", ((double)time) / CLOCKS_PER_SEC);
+
+    heap_ch(NAME6, charSize5);
+    time = clock() - time;
+
+    printf("%s\n", NAME6);
+    printf("Time of char Heap Sort: %f\n\n",
+        ((double)time) / CLOCKS_PER_SEC);
+
 
     return 0;
 
