@@ -37,7 +37,6 @@ void heapSortFy_N(int* num, int size, int i);
 void heapSort_L(char* let, int size);
 void heapSortFy_L(char* let, int size, int i);
 
-
 //Swap
 void swap_N(int* num, int i, int j);
 void swap_L(char* let, int i, int j);
@@ -158,7 +157,6 @@ int main()
 	printf("Sorted Letter is : ");
 	print_L(&let[0], size_L);
 	printf("\nThe time : %f second", (((double)timer) / CLOCKS_PER_SEC));
-	
 	
 	//QuickSort 
 	printf("\n\n<<<<<< QUICK SORT >>>>>>\n");
@@ -474,7 +472,6 @@ void merge_L(char* let, int l, int m, int r)
 	}
 }
 
-
 //Quick Sort		
 
 //for Number 
@@ -574,7 +571,6 @@ void heapSortFy_L(char* let, int size, int i) {
 		heapSortFy_L(let, size, largest);
 	}
 }
-
 
 //Swap	
 
