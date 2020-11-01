@@ -374,6 +374,7 @@ int main() {
 	t = clock() - t;
 	printf("Name in Bubble Sort : %s\n", name3);
 	printf("Running time of Bubble Sort for char: %f\n", ((double)t) / CLOCKS_PER_SEC);
+
 	
 	//QuickSort
 	int arr4[] = { 2,0,1,9,5,5,6,4,5,6 };
@@ -406,5 +407,6 @@ int main() {
 	t = clock() - t;
 	printf("Name in Heap Sort : %s\n", name5);
 	printf("Running time of Heap Sort for char: %f\n", ((double)t) / CLOCKS_PER_SEC);
+
 	return 0;
 }
