@@ -241,7 +241,156 @@ void bubbleSort1(char arr[], int n)
             if (arr[j] > arr[j + 1])
                 swap1(&arr[j], &arr[j + 1]);
 }
+//HeapSORT Number//
 
+
+void heapify(int arr[], int n, int i) 
+{ 
+    int largest = i;  
+    int l = 2*i + 1; 
+    int r = 2*i + 2;  
+  
+    
+    if (l < n && arr[l] > arr[largest]) 
+        largest = l; 
+  
+  
+    if (r < n && arr[r] > arr[largest]) 
+        largest = r; 
+  
+    
+    if (largest != i) 
+    { 
+        swap(&arr[i], &arr[largest]); 
+  
+     
+        heapify(arr, n, largest); 
+    } 
+} 
+  
+ 
+void heapSort(int arr[], int n) 
+{ 
+    
+    for (int i = n / 2 - 1; i >= 0; i--) 
+        heapify(arr, n, i); 
+  
+    
+    for (int i=n-1; i>0; i--) 
+    { 
+        
+        swap(&arr[0], &arr[i]); 
+  
+        
+        heapify(arr, i, 0); 
+    } 
+}
+//HeapSORT String
+void heapify1(char arr[], int n, int i) 
+{ 
+    int largest = i;  
+    int l = 2*i + 1; 
+    int r = 2*i + 2;  
+  
+    
+    if (l < n && arr[l] > arr[largest]) 
+        largest = l; 
+  
+  
+    if (r < n && arr[r] > arr[largest]) 
+        largest = r; 
+  
+    
+    if (largest != i) 
+    { 
+        swap1(&arr[i], &arr[largest]); 
+  
+     
+        heapify1(arr, n, largest); 
+    } 
+} 
+  
+ 
+void heapSort1(char arr[], int n) 
+{ 
+    
+    for (int i = n / 2 - 1; i >= 0; i--) 
+        heapify1(arr, n, i); 
+  
+    
+    for (int i=n-1; i>0; i--) 
+    { 
+        
+        swap1(&arr[0], &arr[i]); 
+  
+        
+        heapify1(arr, i, 0); 
+    } 
+}
+//QUICKSORT NUMBER//
+int partition (int arr[], int low, int high) 
+{ 
+    int pivot = arr[high];   
+    int i = (low - 1);  
+  
+    for (int j = low; j <= high- 1; j++) 
+    { 
+         
+        if (arr[j] < pivot) 
+        { 
+            i++;     
+            swap(&arr[i], &arr[j]); 
+        } 
+    } 
+    swap(&arr[i + 1], &arr[high]); 
+    return (i + 1); 
+} 
+  
+
+void quickSort(int arr[], int low, int high) 
+{ 
+    if (low < high) 
+    { 
+      
+        int pi = partition(arr, low, high); 
+  
+        
+        quickSort(arr, low, pi - 1); 
+        quickSort(arr, pi + 1, high); 
+    } 
+} 
+//QUICKSORT STRING//
+int partition (char arr[], int low, int high) 
+{ 
+    int pivot = arr[high];   
+    int i = (low - 1);  
+  
+    for (int j = low; j <= high- 1; j++) 
+    { 
+         
+        if (arr[j] < pivot) 
+        { 
+            i++;     
+            swap1(&arr[i], &arr[j]); 
+        } 
+    } 
+    swap1(&arr[i + 1], &arr[high]); 
+    return (i + 1); 
+} 
+  
+
+void quickSort1(char arr[], int low, int high) 
+{ 
+    if (low < high) 
+    { 
+      
+        int pi = partition(arr, low, high); 
+  
+        
+        quickSort1(arr, low, pi - 1); 
+        quickSort1(arr, pi + 1, high); 
+    } 
+}
 
 
 
@@ -296,6 +445,27 @@ int main()
 	double elapsed3=(double)(stop3-start3)/CLOCKS_PER_SEC;
 	printf("\n Time in ms:%f\n",elapsed3);
     
+     clock_t start4=clock();
+    heapSort(arr,arr_size);
+    printf("Heap Sort:     ");
+    printArray(arr,arr_size);
+    heapSort1(name,12);
+    printf("Heap Sort:   ");
+    printArray1(name,12);
+    clock_t stop4=clock();
+    double elapsed4=(double)(stop4-start4)/CLOCKS_PER_SEC;
+    printf("\n Time in ms:%f\n",elapsed4);
+    
+    clock_t start5=clock();
+    quickSort(arr,0,arr_size-1);
+    printf("Quick Sort:    ");
+    printArray(arr,arr_size);
+    quickSort1(name,0,11);
+    printf("Quick Sort:   ");
+    printArray1(name,12);
+    clock_t stop5=clock();
+    double elapsed5=(double)(stop5-start5)/CLOCKS_PER_SEC;
+    printf("\n Time in ms:%f\n",elapsed5);
     return 0;
 }
 
