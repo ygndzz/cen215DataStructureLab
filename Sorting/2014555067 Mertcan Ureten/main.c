@@ -301,6 +301,7 @@ int main() {
     printf("%s\n", name2);
     printf("Running Time of Bubble Char Sort Is: %f\n", ((double)t) / CLOCKS_PER_SEC);
 
+    quickSort();
 
     //Merge Sort
 
