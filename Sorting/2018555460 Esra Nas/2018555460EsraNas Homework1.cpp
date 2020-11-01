@@ -2,6 +2,173 @@
 #include <stdlib.h>
 #include<time.h>
 
+printArray(int arr[],int size){
+	int i;
+	for( i=0; i<size; i++){
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+	
+}
+printArrayChar(char arr[],int size){
+		int i;
+	for( i=0;i<size;i++){
+	printf(" %c ",arr[i]);
+	}
+	printf("\n");
+	
+}
+void swap(int* a, int* b) 
+{ 
+    int t = *a; 
+    *a = *b; 
+    *b = t; 
+} 
+
+void swapChar(char *xp, char *yp) 
+{ 
+    char temp = *xp; 
+    *xp = *yp; 
+    *yp = temp; 
+} 
+
+//Heap Sort
+void heap(int arr[], int size, int i)
+{
+  int largest = i;
+  int l = 2 * i + 1;
+  int r = 2 * i + 2;
+
+  if (l < size && arr[l] > arr[largest])
+    largest = l;
+
+  if (r < size && arr[r] > arr[largest])
+    largest = r;
+
+  if (largest != i)
+  {
+    swap(&arr[i], &arr[largest]);
+    heap(arr, size, largest);
+  }
+}
+
+void heapSort(int arr[], int size)
+{
+  int i, j;
+  for (i = size / 2 - 1; i >= 0; i--)
+  {
+    heap(arr, size, i);
+  }
+
+  for (j = size - 1; j > 0; j--)
+  {
+    swap(&arr[0], &arr[j]);
+    heap(arr, j, 0);
+  }
+}
+
+void heapName(char arr[], int size, int i)
+{
+  int largest = i;
+  int l = 2 * i + 1;
+  int r = 2 * i + 2;
+
+  if (l < size && arr[l] > arr[largest])
+    largest = l;
+
+  if (r < size && arr[r] > arr[largest])
+    largest = r;
+
+  if (largest != i)
+  {
+      swapChar(&arr[i], &arr[largest]);
+      heapName(arr, size, largest);
+  }
+}
+
+void heapSortName(char arr[], int size)
+{
+  int i, j;
+  for (i = size / 2 - 1; i >= 0; i--)
+  {
+      heapName(arr, size, i);
+  }
+
+  for (j = size - 1; j > 0; j--)
+  {
+      swapChar(&arr[0], &arr[j]);
+      heapName(arr, j, 0);
+  }
+}
+
+//Quick Sort
+int partition (int arr[], int low, int high) 
+{ 
+    int pivot = arr[high];    
+    int i = (low - 1); 
+	int j; 
+  
+    for( j=low; j<=high-1; j++) 
+    { 
+         
+        if (arr[j] < pivot) 
+        { 
+            i++;    
+            swap(&arr[i], &arr[j]); 
+        } 
+    } 
+    swap(&arr[i + 1], &arr[high]); 
+    return (i + 1); 
+} 
+  
+
+void quickSort(int arr[], int low, int high) 
+{ 
+    if (low < high) 
+    { 
+      
+        int pi = partition(arr, low, high); 
+  
+     
+        quickSort(arr, low, pi - 1); 
+        quickSort(arr, pi + 1, high); 
+    } 
+} 
+ 
+  char partitionName (char arr[], char low, char high) 
+{ 
+    char pivot = arr[high];    
+    char i = (low - 1);
+	char j; 
+  
+    for( j=low; j<=high-1; j++) 
+    { 
+         
+        if (arr[j] < pivot) 
+        { 
+            i++;    
+            swapChar(&arr[i], &arr[j]); 
+        } 
+    } 
+    swapChar(&arr[i + 1], &arr[high]); 
+    return (i + 1); 
+} 
+  
+
+void quickSortName(char arr[],char low, char high) 
+{ 
+    if (low < high) 
+    { 
+        
+        char pi = partitionName(arr, low, high); 
+  
+     
+        quickSortName(arr, low, pi - 1); 
+        quickSortName(arr, pi + 1, high); 
+    } 
+} 
+  
+
 void bubbleSort(int arr[], int size){
 	int i,j;
 	
@@ -23,7 +190,7 @@ void bubbleSortName(char arr[], int size)
    for (i = 0; i < size-1; i++)          
        for (j = 0; j < size-i-1; j++)  
            if (arr[j] > arr[j+1]) 
-              swapChar(arr[j], arr[j+1]); 
+              swapChar(&arr[j], &arr[j+1]); 
               for(i=0;i<size;i++){
               	 printf("%c ",arr[i]);
 			  }
@@ -95,13 +262,7 @@ void insertionSortName(char arr[], int size)
     	for(i=0;i<size;i++)
 	printf("%c ",arr[i]);
 }
-void swapChar(char *xp, char *yp) 
-{ 
-    char temp = *xp; 
-    *xp = *yp; 
-    *yp = temp; 
-} 
- 
+
 void merge(int arr[], int l, int m, int r) 
 { 
     int i, j, k; 
@@ -266,8 +427,27 @@ int main(int argc, char *argv[]) {
 	end=clock();
 	printf("\n Time taken for sorting %lf \n",time_spent);
 	
-
-	   
+	//Quick Sort
+	begin=clock();	
+	printf("\n This is quick sort\n");
+    quickSort(scNo, 0, scNo_size - 1);
+    printArray(scNo,scNo_size);
+	quickSortName(name,0,8);
+	printArrayChar(name,8);
+	end=clock();
+	printf(" Time taken for sorting %lf \n",time_spent);
+	
+	//Heap Sort
+	begin=clock();	
+	printf("\n This is heap sort\n");
+	heapSort(scNo,scNo_size);
+	printArray(scNo,scNo_size);
+	heapSortName(name,8);
+	printArrayChar(name,8);
+	end=clock();
+	printf(" Time taken for sorting %lf \n",time_spent);
+	
 				
 	return 0;
 }
+
