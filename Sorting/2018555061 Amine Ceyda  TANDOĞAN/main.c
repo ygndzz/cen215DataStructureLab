@@ -2,7 +2,7 @@
 #include<time.h>
 #include<conio.h>
 
-/*Amine Ceyda Tandoğan
+/*Amine Ceyda TandoÃ°an
   2018555061*/
 void swap(int *a, int *b)
 {

@@ -13,6 +13,11 @@ void mergeSort(int* d, int left, int right, int isName);
 void mergeName(int* d, int left, int k, int right);
 void mergeNum(int* d, int left, int k, int right);
 
+void quickSort(int* d, int left,int right);
+void heapify(int* d, int n, int i);
+void heapSort(int* d, int n);
+
+void swap(int* x, int* y);
 void makeCharLower(int* d, int n);
 
 int main() {
@@ -108,9 +113,114 @@ int main() {
 	printf("working time merge-name:%f\n", (double)(end - start) / CLOCKS_PER_SEC);
 
 	printf("\n\n\n");
+
+
+	//quickSort Sort
+	for (int i = 0; i < nameLength; i++)
+		nameArray[i] = name[i];
+	int no4[] = { 2,0,1,8,5,5,5,0,6,0 };
+
+
+	makeCharLower(nameArray, nameLength);
+	start = clock();
+	quickSort(no4, 0, noLength - 1);
+	end = clock();
+	printList(no4, noLength, 0);
+	printf("working time quick-no:%f\n", (double)(end - start) / CLOCKS_PER_SEC);
+
+
+	start = clock();
+	quickSort(nameArray, 0, nameLength - 1);
+	end = clock();
+	printList(nameArray, nameLength, 1);
+	printf("working time quick-name:%f\n", (double)(end - start) / CLOCKS_PER_SEC);
+
+	printf("\n\n\n");
+
+
+	//heapSort Sort
+	for (int i = 0; i < nameLength; i++)
+		nameArray[i] = name[i];
+	int no5[] = { 2,0,1,8,5,5,5,0,6,0 };
+
+	makeCharLower(nameArray, nameLength);
+	start = clock();
+	heapSort(no5, noLength);
+	end = clock();
+	printList(no5, noLength, 0);
+	printf("working time heap-no:%f\n", (double)(end - start) / CLOCKS_PER_SEC);
+
+	start = clock();
+	heapSort(nameArray, nameLength);
+	end = clock();
+	printList(nameArray, nameLength, 1);
+	printf("working time heap-name:%f\n", (double)(end - start) / CLOCKS_PER_SEC);
+
+	printf("\n\n\n");
+
 	
 
 
+}
+
+void heapSort(int* d, int n) {
+	for (int i = n / 2 - 1; i >= 0; i--)
+		heapify(d, n, i);
+
+	for (int i = n - 1; i > 0; i--) {
+		swap(&d[0], &d[i]);
+		heapify(d, i, 0);
+	}
+	
+}
+
+void heapify(int *d, int n, int i)
+{
+	int largest = i; 
+	int left = 2 * i + 1; 
+	int right = 2 * i + 2;
+
+	if (left < n && d[left] > d[largest])
+		largest = left;
+
+	if (right < n && d[right] > d[largest])
+		largest = right;
+
+	if (largest != i)
+	{
+		swap(&d[i], &d[largest]);
+		heapify(d, n, largest);
+	}
+}
+void quickSort(int* d, int first, int last) {
+	int j, k, q;
+	j = first;
+	k = last;
+	q = d[(first + last) / 2];
+	
+	while (1) {
+		while (d[j] < q && j < last)
+			j++;
+		while (d[k] > q && k > first)
+			k--;
+		if (j <= k) {
+			swap(&d[j], &d[k]);
+			j++;
+			k--;
+		}
+		else
+			break;
+	}
+	if (first < k)
+		quickSort(d, first, k);
+	if (last > j)
+		quickSort(d, j, last);
+	
+}
+void swap(int* x, int* y) {
+	int temp = *x;
+	*x = *y;
+	*y = temp;
 }
 
 void mergeSort(int* d, int left, int right, int isName) {

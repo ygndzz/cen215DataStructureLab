@@ -216,10 +216,128 @@ void mergeSortChar(char arr[], int l, int r)
     }
 }
 
+int partition(int arr[], int low, int high)
+{
+    int pivot = arr[high];
+    int i = (low - 1);
+    int j;
+    for ( j = low; j <= high- 1; j++)
+    {
+        if (arr[j] <= pivot)
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+void quickSort(int arr[], int low, int high)
+{
+    if (low < high)
+    {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+    int partitionChar(char arr[], int low, int high)
+    {
+        int pivot = arr[high];
+        int i = (low - 1);
+        int j;
+        for ( j = low; j <= high- 1; j++)
+        {
+            if (arr[j] <= pivot)
+            {
+                i++;
+                swapChar(&arr[i], &arr[j]);
+            }
+        }
+        swapChar(&arr[i + 1], &arr[high]);
+        return (i + 1);
+    }
+
+    void quickSortChar(char arr[], int low, int high)
+    {
+        if (low < high)
+        {
+            int pi = partitionChar(arr, low, high);
+            quickSortChar(arr, low, pi - 1);
+            quickSortChar(arr, pi + 1, high);
+        }
+    }
+
+
+    void heapify(int arr[], int n, int i)
+    {
+        int largest = i;
+        int l = 2*i + 1;
+        int r = 2*i + 2;
+
+        if (l < n && arr[l] > arr[largest])
+            largest = l;
+
+        if (r < n && arr[r] > arr[largest])
+            largest = r;
+
+        if (largest != i)
+        {
+            swap(&arr[i], &arr[largest]);
+            heapify(arr, n, largest);
+        }
+    }
+
+    void heapSort(int arr[], int n)
+    {
+
+        for (int i = n / 2 - 1; i >= 0; i--)
+            heapify(arr, n, i);
+
+        for (int i=n-1; i>=0; i--)
+        {
+            swap(&arr[0], &arr[i]);
+            heapify(arr, i, 0);
+        }
+    }
+
+    void heapifyChar(char arr[], int n, int i)
+    {
+        int largest = i;
+        int l = 2*i + 1;
+        int r = 2*i + 2;
+
+        if (l < n && arr[l] > arr[largest])
+            largest = l;
+
+        if (r < n && arr[r] > arr[largest])
+            largest = r;
+
+        if (largest != i)
+        {
+            swapChar(&arr[i], &arr[largest]);
+            heapifyChar(arr, n, largest);
+        }
+    }
+
+    void heapSortChar(char arr[], int n)
+    {
+        for (int i = n / 2 - 1; i >= 0; i--)
+            heapifyChar(arr, n, i);
+
+        for (int i=n-1; i>=0; i--)
+        {
+            swapChar(&arr[0], &arr[i]);
+            heapifyChar(arr, i, 0);
+        }
+    }
+
 int main()
 {
-    
-    printf("NAME: ERGİN CETİN, SCHOOL ID: 2019556021\n\n");
+
+    printf("\n\tNAME: ERGİN CETİN - SCHOOL ID: 2019556021\n");
     int schoolid[] = { 2,0,1,9,5,5,6,0,2,1 };
     char name[] = "Ergin Cetin";
     int numSize = sizeof(schoolid) / sizeof(schoolid[0]);
@@ -227,26 +345,26 @@ int main()
     clock_t start, end;
     double totaltime;
 
-    //time computations for insertion sort. 
+    //time computations for insertion sort.
 
     start = clock();
     insertionSort(schoolid, numSize);
     end = clock();
     totaltime = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\nInsertion sort for number array : ");
+    printf("\n\tInsertion sort for number array : ");
     printArray(schoolid, numSize);
-    printf("Time for insertion sort integer array => %f", totaltime);
-    
+    printf("\tTime for insertion sort integer array => %f", totaltime);
+
     start = clock();
     insertionSortChar(name, nameSize);
     end = clock();
     totaltime = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\nInsertion sort for name array : ");
+    printf("\n\tInsertion sort for name array : ");
     printf("%s", name);
-    printf("\nTime for insertion sort char array => %f\n", totaltime);
-    printf("............................................");
+    printf("\n\tTime for insertion sort char array => %f\n", totaltime);
+    printf("\t............................................");
     //time computations for selection sort
 
     int schoolid2[] = { 2,0,1,9,5,5,6,0,2,1 };
@@ -257,20 +375,20 @@ int main()
     end = clock();
     totaltime = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\nSelection sort for number array : ");
+    printf("\n\tSelection sort for number array : ");
     printArray(schoolid2, numSize);
-    printf("Time for selection sort with int array => %f", totaltime);
+    printf("\tTime for selection sort with int array => %f", totaltime);
 
     start = clock();
     selectionSortChar(name2, nameSize);
     end = clock();
     totaltime = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\nSelection sort for name array : ");
+    printf("\n\tSelection sort for name array : ");
     printf("%s", name2);
-    printf("\nTime for selection sort with char array => %f\n", totaltime);
+    printf("\n\tTime for selection sort with char array => %f\n", totaltime);
 
-    printf(".........................................");
+    printf("\t.........................................");
     //time computations for bubble sort
     int schoolid3[] = { 2,0,1,9,5,5,6,0,2,1 };
     char name3[] = "Ergin Cetin";
@@ -280,19 +398,19 @@ int main()
     end = clock();
     totaltime = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\nBubble sort for number array : ");
+    printf("\n\tBubble sort for number array : ");
     printArray(schoolid3, numSize);
-    printf("Time for bubble sort with int array => %f\n", totaltime);
+    printf("\tTime for bubble sort with int array => %f\n", totaltime);
 
     start = clock();
     bubbleSortChar(name3, nameSize);
     end = clock();
     totaltime = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("Bubble sort for name array : ");
+    printf("\tBubble sort for name array : ");
     printf("%s\n", name3);
-    printf("Time for bubble sort with char array => %f\n", totaltime);
-    printf(".......................................");
+    printf("\tTime for bubble sort with char array => %f\n", totaltime);
+    printf("\t.......................................");
     //time computations for merge sort
     int schoolid4[] = { 2,0,1,9,5,5,6,0,2,1};
     char name4[] = "Ergin Cetin";
@@ -302,18 +420,68 @@ int main()
     end = clock();
     totaltime = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\nMerge sort for int array : ");
+    printf("\n\tMerge sort for int array : ");
     printArray(schoolid4, numSize);
-    printf("Time for merge sort with int array => %f", totaltime);
+    printf("\tTime for merge sort with int array => %f", totaltime);
 
     start = clock();
     mergeSortChar(name4, 0, nameSize - 1);
     end = clock();
     totaltime = (double)(end - start) / CLOCKS_PER_SEC;
 
-    printf("\nMerge sort for name array : ");
+    printf("\n\tMerge sort for name array : ");
     printf("%s", name4);
-    printf("\nTime for merge sort with char array => %f", totaltime);
+    printf("\n\tTime for merge sort with char array => %f", totaltime);
+    printf("\n\t........................................");
+    
+    //time computations for quickSort
+    
+    int schoolid5[] = { 2,0,1,9,5,5,6,0,2,1};
+    char name5[] = "Ergin Cetin";
+
+    start = clock();
+    quickSort(schoolid5, 0, numSize - 1);
+    end = clock();
+    totaltime = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\n\tQuick sort for int array : ");
+    printArray(schoolid5, numSize);
+    printf("\tTime for quick sort with int array => %f", totaltime);
+
+    start = clock();
+    quickSortChar(name5, 0, nameSize - 1);
+    end = clock();
+    totaltime = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\n\tQuick sort for name array : ");
+    printf("%s", name5);
+    printf("\n\tTime for quick sort with char array => %f", totaltime);
+    printf("\n\t...................................");
+    
+    //time computations for heap sort
+    int schoolid6[] = { 2,0,1,9,5,5,6,0,2,1};
+    char name6[] = "Ergin Cetin";
+
+    start = clock();
+    heapSort(schoolid6, numSize );
+    end = clock();
+    totaltime = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\n\tHeap sort for int array : ");
+    printArray(schoolid6, numSize);
+    printf("\tTime for heap sort with int array => %f", totaltime);
+
+    start = clock();
+    heapSortChar(name6, nameSize );
+    end = clock();
+    totaltime = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\n\tHeap sort for name array : ");
+    printf("%s", name6);
+    printf("\n\tTime for heap sort with char array => %f", totaltime);
 
     return 0;
 }
+
+
+
