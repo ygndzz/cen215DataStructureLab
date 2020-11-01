@@ -223,6 +223,129 @@ void mergeSortForChar(char arr[], int l, int r)
 	} 
 } 
 
+/*** QUICK SORT ALGORITHM ***/
+
+int quickParticionForInt(int arr[], int lower, int upper) {
+
+	int pivot = arr[upper];
+    int i = (lower - 1);
+
+    for (int j = lower; j <= upper- 1; j++) 
+        if (arr[j] < pivot) 
+        { 
+            i++;
+            swapForInt(&arr[i], &arr[j]); 
+        }
+
+    swapForInt(&arr[i + 1], &arr[upper]); 
+    return (i + 1); 
+
+}
+
+void quickSortForInt(int arr[], int lower, int upper) {
+	if(upper <= lower )
+		return;
+
+	int p = quickParticionForInt(arr, lower, upper); 
+	quickSortForInt(arr, lower, p - 1); 
+	quickSortForInt(arr, p + 1, upper); 
+}
+
+int quickParticionForChar(char arr[], int lower, int upper) {
+
+	int pivot = arr[upper];
+    int i = (lower - 1);
+
+    for (int j = lower; j <= upper- 1; j++) 
+        if (arr[j] < pivot) 
+        { 
+            i++;
+            swapForChar(&arr[i], &arr[j]); 
+        } 
+
+    swapForChar(&arr[i + 1], &arr[upper]); 
+    return (i + 1); 
+
+}
+
+void quickSortForChar(char arr[], int lower, int upper) {
+	if(upper <= lower )
+		return;
+
+	int p = quickParticionForChar(arr, lower, upper); 
+	quickSortForChar(arr, lower, p - 1); 
+	quickSortForChar(arr, p + 1, upper); 
+}
+
+/*** HEAP SORT ALGORITHM ***/
+
+void heapifyForInt(int arr[], int n, int i)
+{
+
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if (left < n && arr[left] > arr[largest])
+        largest = left;
+
+    if (right < n && arr[right] > arr[largest])
+        largest = right;
+
+    if (largest != i) {
+        swapForInt(&arr[i], &arr[largest]);
+        heapifyForInt(arr, n, largest);
+    } 
+}
+
+
+void heapSortForInt(int arr[], int n) {
+
+    for (int i = n/2 - 1; i >= 0; i--)
+        heapifyForInt(arr, n, i);
+
+    for (int i = n - 1; i >= 0; i--) {
+        swapForInt(&arr[0], &arr[i]);
+
+
+        heapifyForInt(arr, i, 0);
+    }
+}
+
+
+void heapifyForChar(char arr[], int size, int i)
+{
+	int largest = i;
+	int left = 2 * i + 1;
+	int right = 2 * i + 2;
+
+	if (arr[left] > arr[largest] && left<size) 
+		largest = left;
+
+		if (arr[right] > arr[largest] && right<size) 
+			largest = right;
+		if (largest != i)
+        {
+			swapForChar(&arr[i], &arr[largest]);
+			heapifyForChar(arr, size, largest);
+		}
+}
+
+
+void heapSortForChar(char arr[],int size) {
+	int i;
+	for (i = size/2 - 1; i >= 0; i--)
+    {
+		heapifyForChar(arr, size, i);
+	}
+
+	for (i = size-1; i > 0; i--)
+    {
+		swapForChar(&arr[0],&arr[i]);
+		heapifyForChar(arr , i , 0);
+	}
+
+}
 
 /*** PRINT FUNCTIONS ***/
 void printArrayForChar(char name[], int len)
@@ -254,10 +377,10 @@ int main()
 	char name[] = "Bilal Atakan UNAL";
 	int number[] = { 2,0,1,8,5,5,6,0,6,9 };
 
-	int len = strlen(name);
-	int n = sizeof(number) / sizeof(number[0]);
+	int len_name = strlen(name);
+	int len_number = sizeof(number) / sizeof(number[0]);
 
-	for(int i = 0; i < len; i++){
+	for(int i = 0; i < len_name; i++){
 		name[i] = tolower(name[i]); // Lower case: A -> a
 	}
 
@@ -271,16 +394,16 @@ int main()
 	printf("-----> INSERTION SORT <-----\n");
 
 	t = clock(); // get current time
-    insertionForChar(name, len);
+    insertionForChar(name, len_name);
     t = clock() - t; // current time - starting time
     
-    printArrayForChar(name, len); 
+    printArrayForChar(name, len_name); 
     printPerformance( (float) t);
 
 
-	insertionForInt(number, n);	
+	insertionForInt(number, len_number);	
 	t = clock() - t;
-	printArrayForInt(number, n);
+	printArrayForInt(number, len_number);
     printf("Insertion Sort Process: %f\n\n", ((double)t) / CLOCKS_PER_SEC);
 
     /**************************/
@@ -288,15 +411,15 @@ int main()
 	printf("-----> SELECTION SORT <-----\n");
 
 	t = clock();
-	selectionForChar(name, len);
+	selectionForChar(name, len_name);
 	t = clock() - t;
 
-	printArrayForChar(name, len);
+	printArrayForChar(name, len_name);
 	printPerformance( (float) t);
 
-	selectionForInt(number, n);
+	selectionForInt(number, len_number);
 	t = clock() - t;
-	printArrayForInt(number, n);
+	printArrayForInt(number, len_number);
 
     printPerformance( (float) t);
 
@@ -305,15 +428,15 @@ int main()
 	printf("-----> SELECTION SORT <-----\n");
 
 	t = clock();
-	bubbleForChar(name, len);
+	bubbleForChar(name, len_name);
 	t = clock() - t;
 
-	printArrayForChar(name, len);
+	printArrayForChar(name, len_name);
 	printPerformance( (float) t);
 
-	bubbleForInt(number, n);
+	bubbleForInt(number, len_number);
 	t = clock() - t;
-	printArrayForInt(number, n);
+	printArrayForInt(number, len_number);
 
 	printPerformance( (float) t);
 
@@ -321,17 +444,50 @@ int main()
     printf("-----> MERGE SORT <-----\n");
 
 	t = clock();
-	mergeSortForChar(name, 0, len-1);
+	mergeSortForChar(name, 0, len_name-1);
 	t = clock() - t;
 
-	printArrayForChar(name, len);
+	printArrayForChar(name, len_name);
 	printPerformance( (float) t);
 
-	mergeSortForInt(number, 0, n - 1); 
+	mergeSortForInt(number, 0, len_number - 1); 
 	t = clock() - t;
-	printArrayForInt(number, n);
+	printArrayForInt(number, len_number);
 
 	printPerformance( (float) t);
+
+	/**************************/
+    printf("-----> QUICK SORT <-----\n");
+
+	t = clock();
+	quickSortForChar(name, 0, len_name-1);
+	t = clock() - t;
+
+	printArrayForChar(name, len_name);
+	printPerformance( (float) t);
+
+	quickSortForInt(number, 0, len_number - 1); 
+	t = clock() - t;
+	printArrayForInt(number, len_number);
+
+	printPerformance( (float) t);
+
+	/**************************/
+    printf("-----> HEAP SORT <-----\n");
+
+	t = clock();
+	heapSortForChar(name, len_name);
+	t = clock() - t;
+
+	printArrayForChar(name, len_name);
+	printPerformance( (float) t);
+
+	heapSortForInt(number, len_number); 
+	t = clock() - t;
+	printArrayForInt(number, len_number);
+
+	printPerformance( (float) t);
+
 
 	return 0;
     
