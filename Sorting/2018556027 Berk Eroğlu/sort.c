@@ -434,8 +434,6 @@ void heapSortName(char name[], int charSize)
     } 
 } 
 
-=======
-
 int main()
 {
     int num[] = {2,0,1,8,5,5,6,0,2,7};
