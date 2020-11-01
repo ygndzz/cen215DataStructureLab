@@ -152,8 +152,13 @@ int main() {
 	printf("Organized Letter is : ");
 	print_L(&let[0], size_L);
 	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
+<<<<<<< HEAD
     
     	//QuickSort ***********************************************
+=======
+	
+	//QuickSort ***********************************************
+>>>>>>> 3634bd7196ad1aa547869f18b487fa8f36fb27e9
 	printf("\n\nPart of Quick Sort	*********************\n");
 
 	//for Number
@@ -176,7 +181,11 @@ int main() {
 	print_L(&let[0], size_L);
 	printf("\nThe passing time : %f second", (((double)timer) / CLOCKS_PER_SEC));
 
+<<<<<<< HEAD
 	//HeapSort ***********************************************
+=======
+	//HeapkSort ***********************************************
+>>>>>>> 3634bd7196ad1aa547869f18b487fa8f36fb27e9
 	printf("\n\nPart of Heap Sort	*********************\n");
 
 	//for Number
@@ -420,6 +429,10 @@ void merge_L(char* let, int l, int m, int r) {
 	}
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3634bd7196ad1aa547869f18b487fa8f36fb27e9
 //QuickSort		**********************************************
 
 //for Number 
@@ -521,8 +534,11 @@ void heapSortFy_L(char* let, int size, int i) {
 }
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 3634bd7196ad1aa547869f18b487fa8f36fb27e9
 //Swap	********************************************
 
 //for Number
