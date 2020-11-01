@@ -243,6 +243,7 @@ void bubbleSortName(char name[], int size) {
     } while (swapped);
 }
 
+
 //Quick Sort
 
 int partitionNum (int arr[], int low, int high) 
@@ -395,6 +396,7 @@ void heapSortName(char name[], int charSize)
 
 
 
+
 int main(int argc, char
     const * argv[]) {
     int num[] = {
@@ -504,6 +506,7 @@ int main(int argc, char
     printf("%s\n", name4);
     printf("Time = %f\n\n", total);
     
+
       
    
     int num5[] = { 2, 0, 1, 8, 5, 5, 6, 4, 5, 3 
@@ -559,6 +562,8 @@ start = clock();
     printf("%s\n", name6);
     printf("Time = %f\n\n", total);
   
+=======
+
 
     return 0;
 }

@@ -215,6 +215,134 @@ void merge(int arr[], int left, int middle, int right) {
 	}
 }
 
+void quickSort( int number[],int first, int last){
+
+     
+     if (first<last){
+     
+     int pivot=last;
+     int lo = first;
+     int hi = last-1;
+     while(1){
+       while(number[lo]<= number[pivot]&& pivot>lo )
+          lo++;
+       
+         while(number [hi]> number[pivot]&& hi>first)
+           hi--;
+         
+         if(lo<hi)
+         swap(&number[lo],&number[hi]);
+        else
+        	break;
+
+       }
+       swap(&number[lo],&number[pivot]);
+       quickSort(number,first,lo-1);//left
+       quickSort(number,lo+1,last);//right
+     }
+}
+
+void quickSortName( char name[],int first, int last){
+
+     
+     if (first<last){
+     
+     int pivot=last;
+     int lo = first;
+     int hi = last-1;
+     while(1){
+       while(name[lo]<= name[pivot]&& pivot>lo )
+          lo++;
+       
+         while(name [hi]> name[pivot]&& hi>first)
+           hi--;
+         
+         if(lo<hi)
+         swapChar(&name[lo],&name[hi]);
+        else
+        	break;
+
+       }
+       swapChar(&name[lo],&name[pivot]);
+       quickSortName(name,first,lo-1);//left
+       quickSortName(name,lo+1,last);//right
+     }
+
+}
+
+void heapify(int number[],int size, int i){
+
+    int largest =i; // initialize largest as root
+    int leftChild=2*i+1;
+    int rightChild=2*i+2;
+
+    if(number[leftChild]> number[largest]&& leftChild<size)
+      largest=leftChild;
+
+    if(number[rightChild]> number[largest]&& rightChild< size)
+      largest=rightChild;
+
+    if(largest!=i){
+    swap(&number[i] ,&number[largest]);
+
+    heapify(number,size,largest);
+  }
+}   
+
+
+
+void heapSort( int number[],int size){
+
+     for (int i = size/2-1; i >=0; i--)
+     {
+       heapify(number,size,i);
+     }
+
+     for (int i = size-1; i >0 ; i--)
+     {
+       swap(&number[0],&number[i]);
+       heapify(number,i,0);
+     }
+ 
+}
+
+void heapifyName(char name[],int size, int i){
+
+    int largest =i; // initialize largest as root
+    int leftChild=2*i+1;
+    int rightChild=2*i+2;
+
+    if(name[leftChild]> name[largest]&& leftChild<size)
+      largest=leftChild;
+
+    if(name[rightChild]> name[largest]&& rightChild< size)
+      largest=rightChild;
+
+    if(largest!=i){
+    swapChar(&name[i] ,&name[largest]);
+
+    heapifyName(name,size,largest);
+  }
+}   
+
+
+
+void heapSortName( char name[],int size){
+
+     for (int i = size/2-1; i >=0; i--)
+     {
+       heapifyName(name,size,i);
+     }
+
+     for (int i = size-1; i >0 ; i--)
+     {
+       swapChar(&name[0],&name[i]);
+       heapifyName(name,i,0);
+     }
+ 
+}
+
+
 
 void printArray(int arr[],int size){
 
@@ -330,6 +458,61 @@ int main()
 
 	 printf("%s\n", name4);
      printf("TimeName = %f\n", result);
+
+     //quick sort for number
+     printf("quick sort\n");
+     int arr5[] = { 2,0,1,9,5,5,5,0,4,8 };
+	int size5 = sizeof(arr5) / sizeof(arr5[0]);
+
+	start= clock();
+	quickSort(arr5,0, size5-1);
+	end= clock();
+	result = (double)(end - start) / CLOCKS_PER_SEC;
+
+	printArray(arr5, size5);
+	printf("\nTimeNum = %f\n", result);
+
+	//quick sort for name
+
+	char name5[]= "efe koseoglu";
+    int sizeName5= strlen(name5);
+
+    start= clock();
+    quickSortName(name5,0,sizeName5-1);
+    end= clock();
+      result = (double)(end - start) / CLOCKS_PER_SEC;
+
+     printf("%s\n", name5);
+     printf("TimeName = %lf\n", result);
+
+     //heap sort for num
+     printf("heap sort\n");
+     int arr6[] = { 2,0,1,9,5,5,5,0,4,8 };
+	int size6 = sizeof(arr6) / sizeof(arr6[0]);
+
+	start= clock();
+	heapSort(arr6, size6);
+	end= clock();
+	result = (double)(end - start) / CLOCKS_PER_SEC;
+
+
+	printArray(arr6, size6);
+	printf("\nTimeNum = %f\n", result);
+
+	// heap sort for name
+	char name6[]= "efe koseoglu";
+   int sizeName6= strlen(name6);
+
+    start= clock();
+    heapSortName(name6,sizeName6);
+    end= clock();
+     result = (double)(end - start) / CLOCKS_PER_SEC;
+
+     printf("%s\n", name6);
+     printf("TimeName = %lf\n", result);
+
+     
+
 
 	 return 0;
   
