@@ -24,6 +24,7 @@ void swapChar(char* num1, char* num2)
     *num1 = *num2;
     *num2 = temp;
 }
+ master
 void heapifyName(char arr[], int n, int i)
 {
     int largest = i;  
@@ -134,6 +135,8 @@ void quickSort(int arr[], int low, int high)
         quickSort(arr, pi + 1, high); 
     } 
 }
+
+ master
 void insertionSortByNum(int num[], int size) 
 {
     int i, j;
@@ -340,7 +343,11 @@ int main()
     int sizeofNumber = sizeof(num) / sizeof(num[0]);
     int sizeName = (sizeof(name) / sizeof(name[0])) - 1;
     clock_t start, end;
+ master
     double total,total2,total3,total4,total5,total6,total7,total8,total9,total10,total11,total12;
+
+    double total,total2,total3,total4,total5,total6,total7,total8;
+ master
 
     start = clock();
     insertionSortByNum(num, sizeofNumber);
@@ -414,6 +421,7 @@ int main()
     printf("\nMerge sort for name array : \n");
     printf("%s\n", name4);
     printf("Time = %f\n\n", total8);
+ master
     
     int num5[] = {2,0,1,9,5,5,6,4,0,1};
     char name5[] = "safak ertas";
@@ -453,5 +461,7 @@ int main()
     printf("%s\n",name6);
     printf("Time = %f\n",total12);
     
+
+ master
     return 0;
 }
