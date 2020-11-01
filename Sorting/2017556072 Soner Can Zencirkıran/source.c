@@ -241,6 +241,122 @@ void selectionNameSurname(char name[],int x){
         swapChar(&name[i], &name[minIndex]);
     }
 }
+void quicksort(int id[],int first,int last){
+  int i,j,pivot,temp;
+  if (first<last) {
+    pivot=first;
+    i=first;
+    j=last;
+    while(i<j){
+
+      while(id[i]<=id[pivot]&&i<last)
+        i++;
+        
+      while(id[j]>id[pivot])
+        j--;
+        
+      if(i<j){
+        temp=id[i];
+        id[i]=id[j];
+        id[j]=temp;
+      }
+    }
+    temp=id[pivot];
+    id[pivot]=id[j];
+    id[j]=temp;
+    quicksort(id,first,j-1);
+    quicksort(id,j+1,last);
+  }
+}
+char partitionChar(char nameSurname[],int low,int high){
+    int pivot=nameSurname[high];
+    int i=(low-1);
+    int j;
+    
+	j=low;
+	while(j<=high-1){
+	if(nameSurname[j]<pivot){
+	    i++;
+	    swapChar(&nameSurname[i],&nameSurname[j]);
+	}
+	    j++;
+	}
+    swapChar(&nameSurname[i+1],&nameSurname[high]);
+    return(i+1);
+}
+
+void quickSortChar(char nameSurname[],int low,int high){
+    if(low<high){
+        int part=partitionChar(nameSurname,low,high);
+
+        quickSortChar(nameSurname,low,part-1);
+        quickSortChar(nameSurname,part+1,high);
+    }
+}
+void heap(int nameSurname[],int n,int i){
+    int largest=i;
+    int left=2*i+1;
+    int right=2*i+2;
+
+    if(left<n&&nameSurname[left]>nameSurname[largest])
+        largest=left;
+
+    if(right<n&&nameSurname[right]>nameSurname[largest])
+        largest=right;
+
+    if(largest != i){
+        swap(&nameSurname[i],&nameSurname[largest]);
+        heap(nameSurname,n,largest);
+    }
+}
+void heapSort(int nameSurname[],int n){
+    int i, j;
+    
+	i=n/2-1;
+	while(i>=0){
+	heap(nameSurname,n,i);
+	i--;
+    }
+    j=n-1;
+    while(j>0){
+	swap(&nameSurname[0],&nameSurname[j]);
+	heap(nameSurname,j,0);
+	j--;
+	}
+}
+void heapChar(char nameSurname[],int n,int i){
+    int largest=i;
+    int left=2*i+1;
+    int right=2*i+2;
+
+    if (left<n&&nameSurname[left]>nameSurname[largest])
+        largest=left;
+
+    if (right<n&&nameSurname[right]>nameSurname[largest])
+        largest=right;
+
+    if (largest!=i){
+        swapChar(&nameSurname[i],&nameSurname[largest]);
+        heapChar(nameSurname,n,largest);
+    }
+}
+
+void heapSortChar(char nameSurname[], int n) {
+    int i, j;
+    
+	i=n/2-1;
+	while(i>=0){
+	heapChar(nameSurname,n,i);
+	i--;
+}
+	j=n-1;
+	while(j>0){
+	swapChar(&nameSurname[0],&nameSurname[j]);
+	heapChar(nameSurname,j,0);
+	j--;
+	}
+	
+	}
 int main(int argc, char const *argv[])
 {
     int id[] = {2,0,1,7,5,5,6,0,7,2};
@@ -337,6 +453,54 @@ int main(int argc, char const *argv[])
     printf("Selection sort for name and surname -");
     printf("%s\n", nameSurname4);
     printf("passed time - %f\n",time);
-  
+    
+    printf("-------------------------------------------------------------------------\n");
+    
+    start = clock();
+    insertionId(id,sizeId);
+    stop = clock();
+    time=(double)(stop-start)/CLOCKS_PER_SEC;
+//Time for Quick(Id)
+    int i,count;
+    int id5[]={2,0,1,7,5,5,6,0,7,2};
+    char nameSurname5[] = "soner can zencirkiran";
+    quicksort(id,0,9);
+    printf("Quick sort for Id - ");
+    for(i=0;i<10;i++)
+    printf(" %d",id[i]);
+    printf("\npassed time - %f",time);
+//Timer for Quick(Name and Surname)
+    start = clock();
+    quickSortChar(nameSurname5,0,sizeNameSurname-1);
+    stop = clock();
+    printf("\nQuick sort for name and surname -");
+    printf("%s\n",nameSurname5);
+    time=(double)(stop-start)/CLOCKS_PER_SEC;
+    printf("passed time - %f",time);
+    
+    printf("\n-------------------------------------------------------------------------\n");
+
+//Timer for Headp(Id)
+    int id6[]={2,0,1,7,5,5,6,0,7,2};
+    char nameSurname6[] = "soner can zencirkiran";
+    start = clock();
+    heapSort(id6,sizeId);
+    stop = clock();
+    printf("Heap sort for Id - ");
+    for(i=0;i<10;i++)
+    printf(" %d",id6[i]);
+    time=(double)(stop-start)/CLOCKS_PER_SEC;
+    printf("\npassed time - %f",time);
+    
+    
+//Timer for Heap(Name and Surname)
+    start = clock();
+    heapSortChar(nameSurname6,sizeNameSurname);
+    stop = clock();
+    printf("\nHeap sort for name and surname -");
+    printf("%s\n",nameSurname6);
+    time=(double)(stop-start)/CLOCKS_PER_SEC;
+    printf("passed time - %f",time);
+
     return 0;
 }
