@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+
 #define A_SIZE 10
 
 //NUMBER 2017556008 NAME SURNAME:BURCU CANBULAT
@@ -297,7 +298,6 @@ void print_array(int *p, int size)
       printf("%d ", p[i]);
    putchar('\n');
 }
-
 
 int main() {
  
