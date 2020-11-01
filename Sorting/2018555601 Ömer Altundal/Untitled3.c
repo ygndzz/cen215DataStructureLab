@@ -413,6 +413,7 @@ int main()
 	t4=clock()-t4;
 	printf("\nMerge sort worked %f seconds.",((float)t4)/CLOCKS_PER_SEC); 
 	
+
 	clock_t t5;
 	t5=clock();
 	quick_sort_for_number(my_number,0,my_number_size-1);
@@ -434,7 +435,6 @@ int main()
 	print_func_for_char(my_name,my_name_size);
 	t6=clock()-t6;
 	printf("\nHeap sort worked %f seconds.",((float)t6/CLOCKS_PER_SEC));
-	
 	
 	return 0;
 }
