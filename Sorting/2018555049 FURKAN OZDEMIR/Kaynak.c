@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #include<stdio.h>
+=======
+ #include<stdio.h>
+>>>>>>> 860223d9ae07fb35553c8455f23e191c934a87c8
 #include<stdlib.h>
 #include<string.h>
 #include<time.h>
@@ -41,7 +45,7 @@ int main() {
 	insertionSortName(arrName, size2);
 	time = clock() - time;
 	printSortName(arrName, size2);
-	printf("The total time for insertion sort name: %f\n\n", ((double)(time)) / CLOCKS_PER_SEC);
+	printf("The total time for insertion sort : %f\n\n", ((double)(time)) / CLOCKS_PER_SEC);
 
 	//BubbleSort
 
@@ -52,7 +56,7 @@ int main() {
 	bubbleSortName(arrName, size2);
 	time = clock() - time;
 	printSortName(arrName, size2);
-	printf("The total time for bubble sort name: %f\n\n", ((double)(time)) / CLOCKS_PER_SEC);
+	printf("The total time for bubble sort : %f\n\n", ((double)(time)) / CLOCKS_PER_SEC);
 
 	//MergeSort
 	printf("MergeSort\n");
@@ -62,7 +66,26 @@ int main() {
 	mergeSortName(arrName, 0, size2 - 1);
 	time = clock() - time;
 	printSortName(arrName, size2);
-	printf("The total time for merge sort name: %f\n", ((double)(time)) / CLOCKS_PER_SEC);
+	printf("The total time for merge sort : %f\n\n", ((double)(time)) / CLOCKS_PER_SEC);
+
+	 //QUICK SORT
+	printf("QuickSort\n");
+	quickSortId(arrId , 0 , size1-1);
+	printSortId(arrId,size1);
+	quickSortName(arrName, 0, size2 - 1);
+	time = clock() - time;
+	printSortName(arrName, size2);
+	printf("The total time for quick sort : %f\n\n", ((double)(time)) / CLOCKS_PER_SEC);
+
+
+    //HEAP SORT
+    printf("HeapSort\n");
+	heapSortId(arrId , size1);
+	printSortId(arrId,size1);
+	heapSortName(arrName, size2 );
+	time = clock() - time;
+	printSortName(arrName, size2);
+	printf("The total time for heap sort : %f\n\n", ((double)(time)) / CLOCKS_PER_SEC);
 
 
 	return 0;
@@ -257,6 +280,125 @@ void mergeSortName(char arr[], int left, int right) {
 
 	}
 }
+
+//QUICK SORT
+
+int partitionId(int arr[], int left, int right)
+{
+	int pivot = arr[right];
+	int low = (left - 1);
+	int high;
+
+	for (high = left; high <= right - 1; high++)
+	{
+		if (arr[high] <= pivot)
+		{
+			low++;
+			swapId(&arr[low], &arr[high]);
+		}
+	}
+	swapId(&arr[low + 1], &arr[right]);
+	return (low + 1);
+}
+
+void quickSortId(int arr[], int left, int right)
+{
+	if (left < right)
+	{
+		int pivot = partitionId(arr, left, right);
+		quickSortId(arr, left, pivot - 1);
+		quickSortId(arr, pivot + 1, right);
+	}
+}
+
+char partitionName(char arr[], int left, int right) {
+	int pivot = arr[right];
+	int low = (left - 1);
+	int high;
+
+	for (high = left; high <= right - 1; high++)
+	{
+		if (arr[high] <= pivot)
+		{
+			low++;
+			swapName(&arr[low], &arr[high]);
+		}
+	}
+	swapName(&arr[low + 1], &arr[right]);
+	return (low + 1);
+}
+
+void quickSortName(char arr[], int left, int right)
+{
+	if (left < right)
+	{
+		int pivot = partitionName(arr, left, right);
+		quickSortName(arr, left, pivot - 1);
+		quickSortName(arr, pivot + 1, right);
+	}
+}
+
+//HEAP SORT
+void heapifyId(int arr[], int size, int i) {
+	int largest = i;
+	int leftChild = 2 * i + 1;
+	int rightChild = 2 * i + 2;
+
+	if (arr[leftChild] > arr[largest] && leftChild < size)
+		largest = leftChild;
+
+	if (arr[rightChild] > arr[largest] && rightChild < size)
+		largest = rightChild;
+	if (largest != i) {
+		swapId(&arr[i], &arr[largest]);
+		heapifyId(arr, size, largest);
+	}
+
+}
+void heapSortId(int arr[], int size) {
+	int i;
+	for (i = size / 2 - 1; i >= 0; i--) {
+		heapifyId(arr, size, i);
+	}
+
+	for (i = size - 1; i > 0; i--) {
+		swapId(&arr[0], &arr[i]);
+		heapifyId(arr, i, 0);
+	}
+
+}
+
+
+
+void heapifyName(char arr[], int size, int i) {
+	int largest = i;
+	int leftChild = 2 * i + 1;
+	int rightChild = 2 * i + 2;
+
+	if (arr[leftChild] > arr[largest] && leftChild < size)
+		largest = leftChild;
+
+	if (arr[rightChild] > arr[largest] && rightChild < size)
+		largest = rightChild;
+	if (largest != i) {
+		swapName(&arr[i], &arr[largest]);
+		heapifyName(arr, size, largest);
+	}
+
+}
+void heapSortName(char arr[], int size) {
+	int i;
+	for (i = size / 2 - 1; i >= 0; i--) {
+		heapifyName(arr, size, i);
+	}
+
+	for (i = size - 1; i > 0; i--) {
+		swapName(&arr[0], &arr[i]);
+		heapifyName(arr, i, 0);
+	}
+
+}
+
 
 //***PRINT SORTS***//
 void printSortId(int arr[], int size) {
