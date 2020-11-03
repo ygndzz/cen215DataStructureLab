@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include<math.h>
+//math.h was unnecessary
 #include<time.h>
 
 void swapId(int* x, int* y) {
@@ -201,7 +201,7 @@ void printSortName(char arr[], int size) {
     }
     printf("\n");
 }
-
+//HeapSort Function
 void heap(int num[], int len, int i)
 {
   int largest = i;
@@ -270,7 +270,7 @@ void heapName(char name[], int len)
   }
 }
 
-
+//It's necessary for quicksort
 int partNumber(int num[], int low, int high)
 {	
     int i = (low- 1);
@@ -288,6 +288,8 @@ int partNumber(int num[], int low, int high)
 	swapId(&num[i+1], &num[high]);
 	return (i+1);
 }
+
+//QuickSort Function
 void quickNumber(int arr[], int low, int high)
 {
 	if(low<high)
@@ -395,13 +397,13 @@ int main()
     printf("Time of heap sort Name: %f\n\n\n", ((double)(t)) / CLOCKS_PER_SEC);
 
     //Quick Sort
-    quickNumber(Id, 0 ,size1-1);
+    quickNumber(Id, 0 , size1 - 1);
     t = clock() - t;
     printSortId(Id, size1);
     printf("Time of quick sort Id: %f\n", ((double)(t)) / CLOCKS_PER_SEC);
- 
+  //In here I can't find any conflict, it's true
     
-    quickName(Name, 0 ,size2-1);
+    quickName(Name, 0 , size2 - 1);
     t = clock() - t;
     printSortName(Name, size2);
     printf("Time of quick sort Name: %f\n\n\n", ((double)(t)) / CLOCKS_PER_SEC);
