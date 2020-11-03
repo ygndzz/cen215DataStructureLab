@@ -241,6 +241,120 @@ void printArray(int array[], int size)
 	}
 }
 
+
+int partitionNum(int arr[], int low, int high) 
+{ 
+    int pivot = arr[high]; 
+    int i = (low - 1);
+	int j; 
+    for (j = low; j <= high- 1; j++) 
+    { 
+    
+        if (arr[j] < pivot) 
+        { 
+            i++;   
+            swapNum(&arr[i], &arr[j]); 
+        } 
+    } 
+    swapNum(&arr[i + 1], &arr[high]); 
+    return (i + 1); 
+} 
+
+void quickSortNum(int arr[], int low, int high) 
+{ 
+    if (low < high) 
+    { 
+        int pi = partitionNum(arr, low, high); 
+        quickSortNum(arr, low, pi - 1); 
+        quickSortNum(arr, pi + 1, high); 
+    } 
+}
+
+int partitionName(char arr[], int low, int high) 
+{ 
+    int pivot = arr[high]; 
+    int i = (low - 1);
+	int j; 
+    for (j = low; j <= high- 1; j++) 
+    { 
+     
+        if (arr[j] < pivot) 
+        { 
+            i++;   
+            swapName(&arr[i], &arr[j]); 
+        } 
+    } 
+    swapName(&arr[i + 1], &arr[high]); 
+    return (i + 1); 
+} 
+  
+void quickSortName(char arr[], int low, int high) 
+{ 
+    if (low < high) 
+    { 
+
+        int pi = partitionName(arr, low, high); 
+        quickSortName(arr, low, pi - 1); 
+        quickSortName(arr, pi + 1, high); 
+    } 
+} 
+
+void heapifyNum(int arr[], int n, int i) 
+{ 
+    int largest = i; 
+    int l = 2*i + 1; 
+    int r = 2*i + 2; 
+    if (l < n && arr[l] > arr[largest]) 
+        largest = l; 
+    if (r < n && arr[r] > arr[largest]) 
+        largest = r; 
+    if (largest != i) 
+    { 
+        swapNum(&arr[i], &arr[largest]); 
+        heapifyNum(arr, n, largest); 
+    } 
+}
+
+void heapSortNum(int arr[], int n) 
+{ 
+    int i;
+    for (i = n / 2 - 1; i >= 0; i--) 
+        heapifyNum(arr, n, i); 
+    for (i=n-1; i>0; i--) 
+    { 
+        swapNum(&arr[0],&arr[i]); 
+        heapifyNum(arr, i, 0); 
+    } 
+} 
+
+void heapifyName(char name[], int charSize, int i)
+{ 
+    int largest = i; 
+    int l = 2*i + 1; 
+    int r = 2*i + 2; 
+    if (l < charSize && name[l] > name[largest]) 
+        largest = l; 
+    if (r < charSize && name[r] > name[largest]) 
+        largest = r; 
+    if (largest != i) 
+    { 
+        swapName(&name[i], &name[largest]); 
+        heapifyName(name, charSize, largest); 
+    } 
+}
+
+void heapSortName(char name[], int charSize) 
+{ 
+    int i;
+    for (i = charSize / 2 - 1; i >= 0; i--) 
+        heapifyName(name, charSize, i); 
+    for (i=charSize-1; i>0; i--) 
+    { 
+        swapName(&name[0],&name[i]); 
+        heapifyName(name, i, 0); 
+    } 
+} 
+
 int main(){
     clock_t time;
 	int number[] = { 2,0,1,7,5,5,6,0,2,9 };
@@ -311,5 +425,31 @@ int main(){
 	time = (double)clock()-time;
 	printf("Insertion Sort for Name: %s\nInsertion Sort Performance for Name: %f\n", name,((double)time) / CLOCKS_PER_SEC);
 	
+		memcpy(number, defaultNumber,sizeOfNumber);
+    memcpy(name, defaultName,sizeOfName);
+	
+	quickSortNum(number, 0, sizeOfNumber-1);
+    time = clock()-time;
+    printf("\nQuick Sort for Number: ");
+    printArray(number, sizeOfNumber);
+    printf("\nQuick sort Performance for Number: %f\n",((double)time) / CLOCKS_PER_SEC);
+    
+	time = clock()-time;
+    quickSortName(name,0,sizeOfName-1);
+    printf("Quick Sort for Name: %s\nQuick Sort Performance for Name: %f\n\n", name,((double)time) / CLOCKS_PER_SEC);
+    
+    memcpy(number, defaultNumber,sizeOfNumber);
+    memcpy(name, defaultName,sizeOfName);
+	
+	heapSortNum(number,sizeOfNumber);
+    time = clock()-time;
+    printf("Heap Sort for Number: ");
+    printArray(number, sizeOfNumber);
+    printf("\nHeap sort Performance for Number: %f\n",((double)time) / CLOCKS_PER_SEC);
+    
+    time = clock()-time;
+    heapSortName(name,sizeOfName);
+    printf("Heap Sort for Name: %s\nHeap Sort Performance for Name: %f\n\n", name,((double)time) / CLOCKS_PER_SEC);
+
 	return 0;
 }
