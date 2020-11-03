@@ -244,6 +244,156 @@ void bubbleSortName(char name[], int size) {
 }
 
 
+//Quick Sort
+
+int partitionNum (int arr[], int low, int high) 
+{ 
+    int pivot = arr[high]; 
+    int i = (low - 1);
+	int j; 
+  
+    for (j = low; j <= high- 1; j++) 
+    { 
+    
+        if (arr[j] < pivot) 
+        { 
+            i++;   
+            swapNum(&arr[i], &arr[j]); 
+        } 
+    } 
+    swapNum(&arr[i + 1], &arr[high]); 
+    return (i + 1); 
+} 
+  
+
+void quickSortNum(int arr[], int low, int high) 
+{ 
+    if (low < high) 
+    { 
+
+        int pi = partitionNum(arr, low, high); 
+  
+
+        quickSortNum(arr, low, pi - 1); 
+        quickSortNum(arr, pi + 1, high); 
+    } 
+} 
+
+
+int partitionChar (char arr[], int low, int high) 
+{ 
+    int pivot = arr[high]; 
+    int i = (low - 1);
+	int j; 
+  
+    for (j = low; j <= high- 1; j++) 
+    { 
+     
+        if (arr[j] < pivot) 
+        { 
+            i++;   
+            swapChar(&arr[i], &arr[j]); 
+        } 
+    } 
+    swapChar(&arr[i + 1], &arr[high]); 
+    return (i + 1); 
+} 
+  
+
+void quickSortName(char arr[], int low, int high) 
+{ 
+    if (low < high) 
+    { 
+
+        int pi = partitionChar(arr, low, high); 
+  
+
+        quickSortName (arr, low, pi - 1); 
+        quickSortName (arr, pi + 1, high); 
+    } 
+} 
+
+// Heap Sort
+void heapifyNum(int arr[], int n, int i) 
+{ 
+    int largest = i; 
+    int l = 2*i + 1; 
+    int r = 2*i + 2; 
+  
+
+    if (l < n && arr[l] > arr[largest]) 
+        largest = l; 
+  
+
+    if (r < n && arr[r] > arr[largest]) 
+        largest = r; 
+  
+
+    if (largest != i) 
+    { 
+        swapNum(&arr[i], &arr[largest]); 
+  
+
+        heapifyNum(arr, n, largest); 
+    } 
+}
+
+void heapSortNum(int arr[], int n) 
+{ 
+    int i;
+    for (i = n / 2 - 1; i >= 0; i--) 
+        heapifyNum(arr, n, i); 
+  
+
+    for (i=n-1; i>0; i--) 
+    { 
+ 
+        swapNum(&arr[0],&arr[i]); 
+  
+
+        heapifyNum(arr, i, 0); 
+    } 
+} 
+
+
+
+void heapifyName(char name[], int charSize, int i)
+{ 
+    int largest = i; 
+    int l = 2*i + 1; 
+    int r = 2*i + 2; 
+    if (l < charSize && name[l] > name[largest]) 
+        largest = l; 
+
+    if (r < charSize && name[r] > name[largest]) 
+        largest = r; 
+  
+    if (largest != i) 
+    { 
+        swapChar(&name[i], &name[largest]); 
+  
+
+        heapifyName(name, charSize, largest); 
+    } 
+}
+
+void heapSortName(char name[], int charSize) 
+{ 
+    int i;
+    for (i = charSize / 2 - 1; i >= 0; i--) 
+        heapifyName(name, charSize, i); 
+  
+
+    for (i=charSize-1; i>0; i--) 
+    { 
+
+        swapChar(&name[0],&name[i]); 
+
+        heapifyName(name, i, 0); 
+    } 
+} 
+
+
 
 
 
@@ -356,6 +506,64 @@ int main(int argc, char
     printf("%s\n", name4);
     printf("Time = %f\n\n", total);
     
+
+      
+   
+    int num5[] = { 2, 0, 1, 8, 5, 5, 6, 4, 5, 3 
+	};
+    char name5[] = "EFE INCEFIKIR";
+    
+    
+    start = clock();
+    quickSortNum (num5, 0, sizeofNumber - 1);
+    end= clock();
+     total = (double)(end - start) / CLOCKS_PER_SEC;
+     
+  printf("Quick Sort - Number Array : \n");
+    printArray(num5, sizeofNumber);
+   printf("Time = %f\n", total);
+   
+   
+    start = clock();
+   quickSortName(name5, 0, sizeName - 1);
+    end = clock();
+    total = (double)(end - start) / CLOCKS_PER_SEC;
+   
+   
+    printf("\n Quick Sort - Name array : \n");
+    printf("%s\n", name5);
+    printf("Time = %f\n\n", total);
+  
+
+
+    //Heap Sort
+
+    
+    int num6[] = { 2, 0, 1, 8, 5, 5, 6, 4, 5, 3 
+	};
+    char name6[] = "EFE INCEFIKIR";
+    
+     start = clock();
+    heapSortNum (num6, sizeofNumber);
+    end= clock();
+     total = (double)(end - start) / CLOCKS_PER_SEC;
+     
+      printf("Heap Sort - Number Array : \n");
+    printArray(num6, sizeofNumber);
+   printf("Time = %f\n", total);
+
+start = clock();
+   heapSortName(name6, sizeName);
+    end = clock();
+    total = (double)(end - start) / CLOCKS_PER_SEC;
+   
+   
+    printf("\n Heap Sort - Name array : \n");
+    printf("%s\n", name6);
+    printf("Time = %f\n\n", total);
+  
+=======
+
 
     return 0;
 }
