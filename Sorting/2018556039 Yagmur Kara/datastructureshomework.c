@@ -11,6 +11,20 @@
       for(x = 0; x < size ; x++)
       printf("%d ",arr[x]);
 }
+
+void swap(int *xp, int *yp) 
+{ 
+    int temp = *xp; 
+    *xp = *yp; 
+    *yp = temp; 
+} 
+ 
+void swapchar(char *xp, char *yp) 
+{ 
+    char temp = *xp; 
+    *xp = *yp; 
+    *yp = temp; 
+}
  
 //Insertion Sort 
 void InsertionSort(int arr[], int n) 
@@ -188,7 +202,116 @@ void bubblechar(char arr[], int size){
          }
     }
 }
+//Quick Sort
+void quickSort(int arr[], int left, int right)
+{
+   int i = left, j = right;
+   int tmp;
+   int pivot = arr[(left + right) / 2];
 
+   while (i <= j) {
+     while (arr[i] < pivot)
+       i++;
+     while (arr[j] > pivot)
+       j--;
+     if (i <= j) {
+       tmp = arr[i];
+       arr[i] = arr[j];
+       arr[j] = tmp;
+       i++;
+       j--;
+     }
+   };
+
+   if (left < j)
+     quickSort(arr, left, j);
+   if (i < right)
+     quickSort(arr, i, right);
+}
+
+void quickchar(char arr[], int left, int right)
+{
+   int i = left, j = right;
+   char tmp;
+   int pivot = arr[(left + right) / 2];
+
+   while (i <= j) {
+     while (arr[i] < pivot)
+       i++;
+     while (arr[j] > pivot)
+       j--;
+     if (i <= j) {
+       tmp = arr[i];
+       arr[i] = arr[j];
+       arr[j] = tmp;
+       i++;
+       j--;
+     }
+   };
+
+   if (left < j)
+     quickchar(arr, left, j);
+   if (i < right)
+     quickchar(arr, i, right);
+}
+
+
+//Heap Sort
+void heapify(int arr[], int n, int i) { 
+    int largest = i;
+    int l = 2*i + 1; 
+    int r = 2*i + 2;
+
+    if (l < n && arr[l] > arr[largest]) 
+        largest = l; 
+
+    if (r < n && arr[r] > arr[largest]) 
+        largest = r; 
+
+    if (largest != i) { 
+        swap(&arr[i], &arr[largest]); 
+        heapify(arr, n, largest); 
+    } 
+} 
+
+void heapSort(int arr[], int n) { 
+    int i,j;
+    for (i = n / 2 - 1; i >= 0; i--) 
+        heapify(arr, n, i); 
+
+    for (j=n-1; j>0; j--) { 
+        swap(&arr[0], &arr[j]); 
+        heapify(arr, j, 0); 
+    } 
+} 
+
+void heapifychar(char arr[], int n, int i) { 
+    int largest = i;
+    int l = 2*i + 1; 
+    int r = 2*i + 2;
+
+    if (l < n && arr[l] > arr[largest]) 
+        largest = l; 
+
+    if (r < n && arr[r] > arr[largest]) 
+        largest = r; 
+
+    if (largest != i) { 
+        swapchar(&arr[i], &arr[largest]); 
+        heapifychar(arr, n, largest); 
+    } 
+} 
+
+void heapchar(char arr[], int n) { 
+    int i,j;
+    for (i = n / 2 - 1; i >= 0; i--) 
+        heapifychar(arr, n, i); 
+
+    for (j=n-1; j>0; j--) { 
+        swapchar(&arr[0], &arr[j]); 
+        heapifychar(arr, j, 0); 
+    } 
+} 
  int main(){
  	printf("\n CEN 215-DATA STRUCTURES LAB PROJECT 1 \n ");
      printf("\n Unsorted number:2018556039");
@@ -259,5 +382,36 @@ void bubblechar(char arr[], int size){
       t = clock()-t;
       printf("Sorted name in Bubble Sort : %s\n",name3);
       printf("Running time of Bubble Sort for char: %f\n",((double)t) / CLOCKS_PER_SEC);
+	  //Quick Sort
+      int arr4[] = {2,0,1,8,5,5,6,0,3,9};
+      int n4 = sizeof(arr4)/sizeof(arr4[0]);
+      char name4[] = "yagmur kara";
+      int charS4 = strlen(name4);
+    
+      quickSort(arr4,0, n4-1);
+      t = clock()-t;
+      printf("\nSorted numbers in Quick Sort:");
+      printArray(arr4,n4);
+      printf("\nRunning time of Quick Sort for number: %f\n",((double)t) / CLOCKS_PER_SEC);
+      quickchar(name4,0,charS4-1);
+      t = clock()-t;
+      printf("Sorted name in Quick Sort : %s\n",name4);
+      printf("Running time of Quick Sort for char: %f\n",((double)t) / CLOCKS_PER_SEC);
+      
+      //Heap Sort
+       int arr5[] = {2,0,1,8,5,5,6,0,3,9};
+      int n5 = sizeof(arr5)/sizeof(arr5[0]);
+      char name5[] = "yagmur kara";
+      int charS5 = strlen(name5);
+    
+      heapSort(arr5, n5);
+      t = clock()-t;
+      printf("\nSorted numbers in Heap Sort:");
+      printArray(arr5,n5);
+      printf("\nRunning time of Heap Sort for number: %f\n",((double)t) / CLOCKS_PER_SEC);
+      heapchar(name5,charS5);
+      t = clock()-t;
+      printf("Sorted name in Heap Sort : %s\n",name5);
+      printf("Running time of Heap Sort for char: %f\n",((double)t) / CLOCKS_PER_SEC);
       return 0;
  }
