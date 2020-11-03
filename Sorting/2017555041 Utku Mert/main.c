@@ -1,6 +1,7 @@
-
 #include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
+//math.h was unnecessary
 #include<time.h>
 
 void swapId(int* x, int* y) {
@@ -200,6 +201,133 @@ void printSortName(char arr[], int size) {
     }
     printf("\n");
 }
+//HeapSort Function
+void heap(int num[], int len, int i)
+{
+  int largest = i;
+  int l = 2 * i + 1;
+  int r = 2 * i + 2;
+
+  if (l < len && num[l] > num[largest])
+    largest = l;
+
+  if (r < len && num[r] > num[largest])
+    largest = r;
+
+  if (largest != i)
+  {
+    swapId(&num[i], &num[largest]);
+    heap(num, len, largest);
+  }
+}
+
+void heapNumber(int num[], int len)
+{
+  int i, j;
+  for (i = len / 2 - 1; i >= 0; i--)
+  {
+    heap(num, len, i);
+  }
+
+  for (j = len - 1; j > 0; j--)
+  {
+    swapId(&num[0], &num[j]);
+    heap(num, j, 0);
+  }
+}
+
+void heapSName(char name[], int len, int i)
+{
+  int largest = i;
+  int l = 2 * i + 1;
+  int r = 2 * i + 2;
+
+  if (l < len && name[l] > name[largest])
+    largest = l;
+
+  if (r < len && name[r] > name[largest])
+    largest = r;
+
+  if (largest != i)
+  {
+      swapName(&name[i], &name[largest]);
+      heapSName(name, len, largest);
+  }
+}
+
+void heapName(char name[], int len)
+{
+  int i, j;
+  for (i = len / 2 - 1; i >= 0; i--)
+  {
+      heapSName(name, len, i);
+  }
+
+  for (j = len - 1; j > 0; j--)
+  {
+      swapName(&name[0], &name[j]);
+      heapSName(name, j, 0);
+  }
+}
+
+//It's necessary for quicksort
+int partNumber(int num[], int low, int high)
+{	
+    int i = (low- 1);
+	int j;
+	int key = num[high];
+	
+	for(j=low; j <= high-1; j++)
+	{
+		if(num[j]< key)
+		{
+			i++;
+			swapId(&num[i], &num[j]);
+		}
+	}
+	swapId(&num[i+1], &num[high]);
+	return (i+1);
+}
+
+//QuickSort Function
+void quickNumber(int arr[], int low, int high)
+{
+	if(low<high)
+	{
+		int index = partNumber(arr, low, high);
+		quickNumber(arr, low, index-1);
+		quickNumber(arr,index+1,high);
+	}
+}
+
+char partName(char name[], char low, char high)
+{	
+    int i = (low- 1);
+	int j;
+	char key = name[high];
+	
+	for(j=low; j <= high-1; j++)
+	{
+		if(name[j]< key)
+		{
+			i++;
+			swapName(&name[i], &name[j]);
+		}
+	}
+	swapName(&name[i+1], &name[high]);
+	return (i+1);
+}
+void quickName(char name[], char low, char high)
+{
+	if(low<high)
+	{
+		char index = partName(name, low, high);
+		quickName(name, low, index-1);
+		quickName(name,index+1,high);
+	}
+}
+
+
 
 
 int main()
@@ -255,7 +383,30 @@ int main()
     mergeSortName(Name, 0, size2 - 1);
     t = clock() - t;
     printSortName(Name, size2);
-    printf("Time of merge sort Name: %f\n", ((double)(t)) / CLOCKS_PER_SEC);
+    printf("Time of merge sort Name: %f\n\n\n", ((double)(t)) / CLOCKS_PER_SEC);
+
+    //Heap Sort
+    heapNumber(Id,size2);
+    t = clock() - t;
+    printSortId(Id, size1);
+    printf("Time of heap sort Id: %f\n", ((double)(t)) / CLOCKS_PER_SEC);
+    
+    heapName(Name,size2);
+    t = clock() - t;
+    printSortName(Name, size2);
+    printf("Time of heap sort Name: %f\n\n\n", ((double)(t)) / CLOCKS_PER_SEC);
+
+    //Quick Sort
+    quickNumber(Id, 0 , size1 - 1);
+    t = clock() - t;
+    printSortId(Id, size1);
+    printf("Time of quick sort Id: %f\n", ((double)(t)) / CLOCKS_PER_SEC);
+  //In here I can't find any conflict, it's true
+    
+    quickName(Name, 0 , size2 - 1);
+    t = clock() - t;
+    printSortName(Name, size2);
+    printf("Time of quick sort Name: %f\n\n\n", ((double)(t)) / CLOCKS_PER_SEC);
 
 
     return 0;
