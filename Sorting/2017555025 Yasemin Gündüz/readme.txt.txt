@@ -1,0 +1,1 @@
+MEHMET IPEK ve DENIZ UGUR isimleri datada bulunmasında sıkntı çıktı ondan dolayı datada da ve kodda bu iki ismi ingilizce karakter olarak modifiye ettim . 

@@ -1,0 +1,563 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+
+
+typedef struct {
+	char name[30];
+	int number;
+	int grade;
+
+}Student;
+
+
+void quickSortForArrays(int right, int left, int sortArray[]);
+void quickSortForName(int right, int left, Student students[]);
+void quickSortForGrade(int right, int left, Student students[]);
+void quickSortForNumber(int right, int left, Student students[]);
+
+void readData(Student* st);
+void swapValue(int& x, int& y);
+void swapForStudent(Student& x, Student& y);
+
+int sequentialSecondarySearchForArray(int arrayList[], int size, int key, int searchArray[]);
+int sequentialSecondarySearchForGrade(int arrayList[], int key, Student students[]);
+int sequentialSecondarySearchForName(int listArray[], char* keyValue, Student students[]);
+
+int sequentialPrimarySearchForArray(int searchArray[], int size, int key);
+int sequentialPrimarySearchForNumber(Student students[], int key);
+int sequentialPrimarySearchForName(Student students[], char* key);
+
+int binarySecondarySearchForGrade(Student students[], int arrayList[],int key );
+
+int binaryPrimarySearchForArray(int searchArray[], int size, int key);
+int binaryPrimarySearchForNumber(Student students[], int key);
+int binaryPrimarySearchForName(Student students[], char* key);
+
+
+int main() {
+	setlocale(LC_ALL, "Turkish");
+
+	int firstArray[] = { 3,44,38,5,47,15,36,26,27,2,46,4,19,50,48 };
+	int secondArray[] = { 3,44,48,5,47,15,36,26,27,2,48,5,19,50,48 };
+	int const size1 = sizeof(firstArray) / sizeof(firstArray[0]);
+	int const size2 = sizeof(secondArray) / sizeof(secondArray[0]);
+
+
+	quickSortForArrays(size1 - 1, 0, firstArray);//Here i am sort first array
+	int afterSearchPosition = binaryPrimarySearchForArray(firstArray, size1, 3);//in this part call binaryPrimarySearchForArray function and  doing binary search on first array
+	printf("FirstArrayBinarySearchValue       Index      Number\n");
+	printf("    3                              %2d          %d\n", afterSearchPosition, firstArray[afterSearchPosition]);
+	afterSearchPosition = binaryPrimarySearchForArray(firstArray, size1, 5);
+	printf("    5                              %2d          %d\n", afterSearchPosition, firstArray[afterSearchPosition]);
+	afterSearchPosition = binaryPrimarySearchForArray(firstArray, size1, 48);
+	printf("   48                              %2d         %d\n\n", afterSearchPosition, firstArray[afterSearchPosition]);
+
+	afterSearchPosition = sequentialPrimarySearchForArray(secondArray, size2, 3);//in this part call sequentialPrimarySearchForArray function and  doing lineer search on second array and find an element //this is for not multiple find
+	printf("SecondArrayLineerSearchValue       Indexes    Number\n");
+
+	printf("    3                              %2d         %d\n", afterSearchPosition, secondArray[afterSearchPosition]);
+	int result[size2];
+	int num = sequentialSecondarySearchForArray(result, size2, 5, secondArray);//in this part call sequentialSecondarySearchForArray function and  doing lineer search on second array and find an element //this is for multiple find
+	printf("    5                              ");
+	for (int i = 0; i < num; i++) {
+		printf("%d ", result[i]);
+	}
+	printf("      5\n");
+	int result2[size2];
+	num = sequentialSecondarySearchForArray(result2, size2, 48, secondArray);
+	printf("    48                           ");
+	for (int i = 0; i < num; i++) {
+		printf("%d ", result2[i]);
+	}
+	printf("     48\n\n\n");
+	//printf("\n\n");
+
+
+
+	Student students[273];
+	//int counter = 0;
+	//FILE* f;
+	//f = fopen("data.txt", "r");
+	//while (!feof(f)) {
+	//	fscanf(f, "%d,%[^,],%d\n", &students[counter].number, students[counter].name, &students[counter].grade);
+	//	counter++;
+	//}
+	//fclose(f);
+	readData(students);
+
+	int firstResultVaiarble[10];
+	char name[] = "MEHMET IPEK";
+	afterSearchPosition = sequentialSecondarySearchForName(firstResultVaiarble, name, students);//in this part call sequentialSecondarySearchForName function and  doing lineer secondary search on data.txt
+	printf("Searching for those with a name MEHMET IPEK as linear secondary.:\n");
+	printf("    NUMBER              GRADE         NAME\n");
+
+	for (int i = 0; i < afterSearchPosition; i++) {
+		printf("   %d            %d         %s\n", students[firstResultVaiarble[i]].number, students[firstResultVaiarble[i]].grade, students[firstResultVaiarble[i]].name);
+	}
+	printf("\n");
+
+
+
+	quickSortForName(273 - 1, 0, students);
+	char name2[] = "DENIZ UGUR";
+	afterSearchPosition = binaryPrimarySearchForName(students, name2);//in this part call binaryPrimarySearchForName function and  doing binary primary search on data.txt
+	printf("Searching for those with a name DENIZ UGUR as binary primary.:\n");
+	printf("    NUMBER              GRADE         NAME\n");
+
+	printf("   %d            %d         %s\n\n", students[afterSearchPosition].number, students[afterSearchPosition].grade, students[afterSearchPosition].name);
+
+	afterSearchPosition = sequentialPrimarySearchForNumber(students, 2019556465);//in this part call sequentialPrimarySearchForNumber function and  doing lineer primary search on data.txt
+	printf("Searching for those with a number 2019556465 as linear primary.:\n");
+	printf("    NUMBER              GRADE         NAME\n");
+	printf("   %d            %d         %s\n\n", students[afterSearchPosition].number, students[afterSearchPosition].grade, students[afterSearchPosition].name);
+
+	quickSortForNumber(273 - 1, 0, students);
+	afterSearchPosition = binaryPrimarySearchForNumber(students, 2018556011);//in this part call binaryPrimarySearchForNumber function and  doing binary primary search on data.txt
+	printf("Searching for those with a number 2018556011 as binary primary.:\n");
+	printf("    NUMBER              GRADE         NAME\n");
+	printf("   %d            %d         %s\n\n", students[afterSearchPosition].number, students[afterSearchPosition].grade, students[afterSearchPosition].name);
+
+
+	int results3[10];
+	int num2 = sequentialSecondarySearchForGrade(results3, 100, students);//in this part call sequentialSecondarySearchForGrade function and  doing lineer secondary search on data.txt
+	printf("Searching for those with a grade 100 as lineer secondary.:\n");
+	printf("    NUMBER              GRADE         NAME\n");
+	for (int i = 0; i < num2; i++) {
+		printf("   %d            %d         %s\n", students[results3[i]].number, students[results3[i]].grade, students[results3[i]].name);
+	}
+	printf("\n");
+
+	quickSortForGrade(273 - 1, 0, students);
+	int results4[10];
+	num2 = binarySecondarySearchForGrade(students,results4 ,73 );//in this part call binarySecondarySearchForGrade function and  doing binary secondary search on data.txt
+	printf("Searching for those with a grade 73 as binary secondary.:\n");
+	printf("    NUMBER              GRADE         NAME\n");	
+	for (int i = 0; i < num2; i++) {
+		printf("   %d            %d          %s\n", students[results4[i]].number, students[results4[i]].grade, students[results4[i]].name);
+	}
+	printf("\n");
+
+	int results5[10];
+	num2 = binarySecondarySearchForGrade(students, results5, 0);//in this part call binarySecondarySearchForGrade function and  doing binary secondary search on data.txt
+	printf("Searching for those with a grade 0 as binary secondary.:\n");
+	printf("    NUMBER              GRADE         NAME\n");
+	for (int i = 0; i < num2; i++) {
+		printf("   %d            %d           %s\n", students[results5[i]].number, students[results5[i]].grade, students[results5[i]].name);
+
+	}
+
+}
+
+void quickSortForNumber(int right, int left, Student students[]) {
+	int j = left, k = right;
+	int q = students[(left + right) / 2].number;
+	if (j <= k)
+	{
+		do
+		{
+			if ((j < right) && students[j].number < q)
+			{
+				do
+				{
+					j++;
+
+				} while ((j < right) && students[j].number < q);
+			}
+			if ((k > left) && (students[k].number > q))
+			{
+				do
+				{
+					k--;
+
+				} while ((k > left) && (students[k].number > q));
+			}
+
+
+			if (j <= k) {
+				swapForStudent(students[j], students[k]);
+				k--; j++;
+			}
+		} while (j <= k);
+	}
+
+
+	if (k > left)
+	{
+		quickSortForNumber(k, left, students);
+	}
+
+	if (j < right)
+	{
+		quickSortForNumber(right, j, students);
+	}
+
+}
+void quickSortForGrade(int right, int left, Student students[]) {
+	int j = left, k = right;
+	int q = students[(left + right) / 2].grade;
+	if (j <= k)
+	{
+		do
+		{
+			if ((j < right) && students[j].grade < q)
+			{
+				do
+				{
+					j++;
+				} while ((j < right) && students[j].grade < q);
+			}
+			if ((k > left) && (students[k].grade > q))
+			{
+				do
+				{
+					k--;
+				} while ((k > left) && (students[k].grade > q));
+			}
+
+
+			if (j <= k) {
+				swapForStudent(students[j], students[k]);
+				k--; j++;
+			}
+		} while (j <= k);
+	}
+
+
+	if (k > left)
+	{
+		quickSortForGrade(k, left, students);
+	}
+
+	if (j < right)
+	{
+		quickSortForGrade(right, j, students);
+	}
+
+}
+void quickSortForName(int right, int left, Student students[]) {
+	int j = left, k = right;
+	int q = students[(left + right) / 2].name[0];
+	if (j <= k)
+	{
+		do
+		{
+			if ((j < right) && students[j].name[0] < q)
+			{
+				do
+				{
+					j++;
+				} while ((j < right) && students[j].name[0] < q);
+			}
+			if ((k > left) && (students[k].name[0] > q))
+			{
+				do
+				{
+					k--;
+				} while ((k > left) && (students[k].name[0] > q));
+			}
+
+			if (j <= k) {
+				swapForStudent(students[j], students[k]);
+				k--; j++;
+			}
+		} while (j <= k);
+	}
+
+
+	if (k > left)
+	{
+		quickSortForName(k, left, students);
+	}
+
+	if (j < right)
+	{
+		quickSortForName(right, j, students);
+	}
+
+}
+void quickSortForArrays(int right, int left, int sortArray[]) {
+	int j = left, k = right;
+	int q = sortArray[(left + right) / 2];
+	if (j <= k)
+	{
+		do
+		{
+			if ((j < right) && sortArray[j] < q)
+			{
+				do
+				{
+					j++;
+
+				} while ((j < right) && sortArray[j] < q);
+			}
+			if ((k > left) && (sortArray[k] > q))
+			{
+				do
+				{
+					k--;
+
+				} while ((k > left) && (sortArray[k] > q));
+			}
+
+
+			if (j <= k) {
+				swapValue(sortArray[j], sortArray[k]);
+				k--; j++;
+			}
+		} while (j <= k);
+
+	}
+
+
+	if (k > left)
+	{
+		quickSortForArrays(k, left, sortArray);
+	}
+
+	if (j < right)
+	{
+		quickSortForArrays(right, j, sortArray);
+	}
+
+
+}
+
+
+void readData(Student* st) {
+	int counter = 0;
+	FILE* ftpr;
+	ftpr = fopen("data.txt", "r");
+	while (!feof(ftpr)) {
+		fscanf(ftpr, "%d,%[^,],%d\n", &st[counter].number, st[counter].name, &st[counter].grade);
+		counter++;
+	}
+	fclose(ftpr);
+
+}
+
+void swapForStudent(Student& firstStudentForSwap, Student& secondStudentForSwap) {
+	Student temproraryStudent = firstStudentForSwap;
+	firstStudentForSwap = secondStudentForSwap;
+	secondStudentForSwap = temproraryStudent;
+}
+
+void swapValue(int& firstValueForSwap, int& secondValueForSwap) {
+	int temprorary = firstValueForSwap;
+	firstValueForSwap = secondValueForSwap;
+	secondValueForSwap = temprorary;
+}
+
+
+
+int sequentialPrimarySearchForName(Student students[], char* key) {//kullanmamisssssssss
+	for (int i = 0; i < 273; i++)
+	{
+		if (strcmp(students[i].name, key) == 0)
+		{
+			return i;
+		}
+
+	}
+	return -1;
+}
+int sequentialPrimarySearchForNumber(Student students[], int key) {
+	for (int i = 0; i < 273; i++)
+	{
+		if (students[i].number == key)
+		{
+			return i;
+		}
+
+	}
+	return -1;
+}
+int sequentialPrimarySearchForArray(int searchArray[], int size, int key) {
+	for (int i = 0; i < size; i++)
+	{
+		if (searchArray[i] == key)
+		{
+			return i;
+		}
+
+	}
+	return -1;
+}
+
+
+int sequentialSecondarySearchForGrade(int arrayList[], int key, Student students[]) {
+	int c = 0;
+	for (int i = 0; i < 273; i++)
+	{
+		if (students[i].grade == key)
+		{
+			arrayList[c++] = i;
+		}
+
+	}
+	return c;
+}
+int sequentialSecondarySearchForArray(int arrayList[], int size, int key, int searchArray[]) {
+	int c = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (searchArray[i] == key)
+		{
+			arrayList[c] = i;
+			c++;
+		}
+
+	}
+	return c;
+}
+int sequentialSecondarySearchForName(int arrayList[], char* keyValue, Student students[]) {
+	int c = 0;
+	for (int i = 0; i < 273; i++)
+	{
+		if (strcmp(students[i].name, keyValue) == 0)
+		{
+			arrayList[c++] = i;
+		}
+
+	}
+	return c;
+}
+
+
+
+int binaryPrimarySearchForName(Student students[], char* key) {
+	int q;
+	int left = 0;
+	int right = 273 - 1;
+	if (left <= right)
+	{
+		do
+		{
+			q = (left + right) / 2;
+			if (strcmp(students[q].name, key) == 0)
+			{
+				return q;
+			}
+
+			else if (strcmp(students[q].name, key) > 0)
+			{
+				right = q - 1;
+			}
+
+			else
+			{
+				left = q + 1;
+			}
+
+		} while (left <= right);
+	}
+
+	return -1;
+}
+int binaryPrimarySearchForNumber(Student students[], int key) {
+	int q;
+	int left = 0;
+	int right = 273 - 1;
+	if (left <= right)
+	{
+		do
+		{
+			q = (left + right) / 2;
+			if (students[q].number == key)
+			{
+				return q;
+			}
+
+			else if (students[q].number > key)
+			{
+				right = q - 1;
+			}
+
+			else
+			{
+				left = q + 1;
+			}
+
+		} while (left <= right);
+	}
+
+	return -1;
+}
+int binaryPrimarySearchForArray(int searchArray[], int size, int key) {
+	int q;
+	int left = 0;
+	int right = size - 1;
+	if (left <= right)
+	{
+		do
+		{
+			q = (left + right) / 2;
+			if (searchArray[q] == key)
+			{
+				return q;
+
+			}
+			else if (searchArray[q] > key)
+			{
+				right = q - 1;
+			}
+			else
+			{
+				left = q + 1;
+			}
+
+		} while (left <= right);
+	}
+
+	return -1;
+}
+
+int binarySecondarySearchForGrade(Student students[], int arrayList[], int key) {
+	int left = 0;
+	int right = 273 - 1;
+	int q;
+	int counter = 0;
+	if (left <= right)
+	{
+		do
+		{
+			q = (left + right) / 2;
+			if (students[q].grade == key)
+			{
+				arrayList[counter++] = q;
+				int upCounter = q + 1, downCounter = q - 1;
+				if (students[upCounter].grade == key)
+				{
+					do
+					{
+						arrayList[counter++] = upCounter++;
+
+					} while (students[upCounter].grade == key);
+				}
+				if (students[downCounter].grade == key)
+				{
+					do
+					{
+						arrayList[counter++] = downCounter--;
+
+					} while (students[downCounter].grade == key);
+				}
+
+				return counter;
+			}
+			else if (students[q].grade < key)
+			{
+				left = q + 1;
+			}
+
+			else
+			{
+				right = q - 1;
+			}
+
+		} while (left <= right);
+	}
+
+	return counter;
+}
